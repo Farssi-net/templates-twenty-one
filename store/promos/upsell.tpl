@@ -1,7 +1,7 @@
 <div class="promo-banner promo-banner-rounded {$promotion->getClass()}">
-    <div class="panel-body">
+    <div class="card-body">
         <div class="icon-left">
-            <a href="{routePath($promotion->getLearnMoreRoute())}">
+            <a href="{$promotion->getLearnMoreRoute()}">
                 <img src="{$promotion->getImagePath()}">
             </a>
         </div>
@@ -11,7 +11,7 @@
             <h3>
                 {$promotion->getHeadline()}
                 {if $promotion->getLearnMoreRoute()}
-                    <small><a href="{routePath($promotion->getLearnMoreRoute())}">{lang key='learnmore'}...</a></small>
+                    <small><a href="{$promotion->getLearnMoreRoute()}">{lang key='learnmore'}...</a></small>
                 {/if}
             </h3>
             <h4>{$promotion->getTagline()}</h4>
@@ -22,8 +22,11 @@
 
             {if $promotion->hasFeatures()}
                 <ul>
-                    {foreach $promotion->getFeatures() as $feature}
-                        <li><i class="far fa-check-circle"></i> {$feature}</li>
+                    {assign "promotionFeatures" $promotion->getFeatures()}
+                    {foreach $promotionFeatures as $key=>$feature}
+                        <li class="{if $key < ($promotionFeatures|@count / 2)}left{else}right{/if}">
+                            <i class="far fa-check-circle"></i> {$feature}
+                        </li>
                     {/foreach}
                 </ul>
             {/if}
@@ -41,6 +44,8 @@
                         {lang key="fromJust"}
                         {if $product->pricing()->first()->isYearly()}
                             {$product->pricing()->first()->yearlyPrice()}
+                        {elseif $product->pricing()->first()->isOneTime()}
+                            {$product->pricing()->first()->oneTimePrice()}
                         {else}
                             {$product->pricing()->first()->monthlyPrice()}
                         {/if}

@@ -1,83 +1,76 @@
 {if $inactive}
 
-    {include file="$template/includes/alert.tpl" type="danger" msg=$LANG.affiliatesdisabled textcenter=true}
+    {include file="$template/includes/alert.tpl" type="danger" msg="{lang key='affiliatesdisabled'}" textcenter=true}
 
 {else}
-
-    <div class="row">
-
-        <div class="col-sm-4">
-            <div class="affiliate-stat affiliate-stat-green alert-warning">
-                <i class="fas fa-users"></i>
-                <span>{$visitors}</span>
-                {$LANG.affiliatesclicks}
-            </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="affiliate-stat affiliate-stat-green alert-info">
-                <i class="fas fa-shopping-cart"></i>
-                <span>{$signups}</span>
-                {$LANG.affiliatessignups}
-            </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="affiliate-stat affiliate-stat-green alert-success">
-                <i class="far fa-chart-bar"></i>
-                <span>{$conversionrate}%</span>
-                {$LANG.affiliatesconversionrate}
-            </div>
-        </div>
-
-    </div>
-
-    <div class="affiliate-referral-link text-center">
-
-        <h3>{$LANG.affiliatesreferallink}</h3>
-        <span>{$referrallink}</span>
-
-    </div>
-
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h4>{$LANG.affiliatescommissionsavailable}:</h4>
-                    <h2><strong>{$balance}</strong></h2><br />
-                    <div class="rade-affiliate">
-                    	<div class="pull-left">
-         					<h4>{$LANG.affiliatescommissionspending}:</h4>
-    					</div>
-    					<div class="pull-right">
-         					<h3 class="text-right" style="margin-top:10px;"><strong>{$pendingcommissions}</strong></h3>
-    					</div>
-    					<div class="clearfix"></div>
-                    </div>
-                    <hr />
-                    <div class="rade-affiliate">
-                    	<div class="pull-left">
-         					<h4>{$LANG.affiliateswithdrawn}:</h4>
-    					</div>
-    					<div class="pull-right">
-         					<h3 class="text-right" style="margin-top:10px;"><strong>{$withdrawn}</strong></h3>
-    					</div>
-    					<div class="clearfix"></div>
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-
+    {include file="$template/includes/flashmessage.tpl"}
     {if $withdrawrequestsent}
         <div class="alert alert-success">
-            <p>{$LANG.affiliateswithdrawalrequestsuccessful}</p>
+            <i class="fas fa-check fa-fw"></i>
+            {lang key='affiliateswithdrawalrequestsuccessful'}
         </div>
-    {else}
+    {/if}
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="affiliate-stat affiliate-stat-green alert-warning mb-2">
+                <i class="fas fa-users"></i>
+                <span>{$visitors}</span>
+                {lang key='affiliatesclicks'}
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="affiliate-stat affiliate-stat-green alert-info mb-2">
+                <i class="fas fa-shopping-cart"></i>
+                <span>{$signups}</span>
+                {lang key='affiliatessignups'}
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="affiliate-stat affiliate-stat-green alert-success mb-2">
+                <i class="far fa-chart-bar"></i>
+                <span>{$conversionrate}%</span>
+                {lang key='affiliatesconversionrate'}
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card my-3">
+        <div class="card-body">
+
+            <p class="h3">{lang key='affiliatesreferallink'}</p>
+            <input type="text" class="form-control" readonly="readonly" value="{$referrallink}">
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <table class="table table-bordered table-striped table-rounded">
+                <tr>
+                    <td class="text-right">{lang key='affiliatescommissionspending'}:</td>
+                    <td><strong>{$pendingcommissions}</strong></td>
+                </tr>
+                <tr>
+                    <td class="text-right">{lang key='affiliatescommissionsavailable'}:</td>
+                    <td><strong>{$balance}</strong></td>
+                </tr>
+                <tr>
+                    <td class="text-right">{lang key='affiliateswithdrawn'}:</td>
+                    <td><strong>{$withdrawn}</strong></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    {if !$withdrawrequestsent}
         <p class="text-center">
-            <a href="{$smarty.server.PHP_SELF}?action=withdrawrequest" class="btn btn-lg btn-danger"{if !$withdrawlevel} disabled="true"{/if}>
-                <i class="fas fa-university"></i> {$LANG.affiliatesrequestwithdrawal}
+            <a href="{$smarty.server.PHP_SELF}?action=withdrawrequest" class="btn btn-lg btn-danger{if !$withdrawlevel} disabled" disabled="disabled{/if}">
+                <i class="fas fa-university"></i> {lang key='affiliatesrequestwithdrawal'}
             </a>
         </p>
         {if !$withdrawlevel}
@@ -85,13 +78,13 @@
         {/if}
     {/if}
 
-    {include file="$template/includes/subheader.tpl" title=$LANG.affiliatesreferals}
+    <h2>{lang key='affiliatesreferals'}</h2>
 
     {include file="$template/includes/tablelist.tpl" tableName="AffiliatesList"}
-    <script type="text/javascript">
-        jQuery(document).ready( function ()
-        {
-            var table = jQuery('#tableAffiliatesList').removeClass('hidden').DataTable();
+    <script>
+        jQuery(document).ready(function() {
+            var table = jQuery('#tableAffiliatesList').show().DataTable();
+
             {if $orderby == 'regdate'}
                 table.order(0, '{$sort}');
             {elseif $orderby == 'product'}
@@ -102,24 +95,24 @@
                 table.order(4, '{$sort}');
             {/if}
             table.draw();
-            jQuery('#tableLoading').addClass('hidden');
+            jQuery('#tableLoading').hide();
         });
     </script>
     <div class="table-container clearfix">
-        <table id="tableAffiliatesList" class="table table-list hidden">
+        <table id="tableAffiliatesList" class="table table-list w-hidden">
             <thead>
                 <tr>
-                    <th>{$LANG.affiliatessignupdate}</th>
-                    <th>{$LANG.orderproduct}</th>
-                    <th>{$LANG.affiliatesamount}</th>
-                    <th>{$LANG.affiliatescommission}</th>
-                    <th>{$LANG.affiliatesstatus}</th>
+                    <th>{lang key='affiliatessignupdate'}</th>
+                    <th>{lang key='orderproduct'}</th>
+                    <th>{lang key='affiliatesamount'}</th>
+                    <th>{lang key='affiliatescommission'}</th>
+                    <th>{lang key='affiliatesstatus'}</th>
                 </tr>
             </thead>
             <tbody>
-            {foreach from=$referrals item=referral}
+            {foreach $referrals as $referral}
                 <tr class="text-center">
-                    <td><span class="hidden">{$referral.datets}</span>{$referral.date}</td>
+                    <td><span class="w-hidden">{$referral.datets}</span>{$referral.date}</td>
                     <td>{$referral.service}</td>
                     <td data-order="{$referral.amountnum}">{$referral.amountdesc}</td>
                     <td data-order="{$referral.commissionnum}">{$referral.commission}</td>
@@ -129,12 +122,12 @@
             </tbody>
         </table>
         <div class="text-center" id="tableLoading">
-            <p><i class="fas fa-spinner fa-spin"></i> {$LANG.loading}</p>
+            <p><i class="fas fa-spinner fa-spin"></i> {lang key='loading'}</p>
         </div>
     </div>
 
     {if $affiliatelinkscode}
-        {include file="$template/includes/subheader.tpl" title=$LANG.affiliateslinktous}
+        <h2>{lang key='affiliateslinktous'}</h2>
         <div class="margin-bottom text-center">
             {$affiliatelinkscode}
         </div>

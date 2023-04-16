@@ -1,6 +1,6 @@
 {include file="$template/includes/tablelist.tpl" tableName="SslList" startOrderCol="3" filterColumn="0" noSortColumns="4"}
 
-<div class="alert alert-table-ssl-manage hidden"></div>
+<div class="alert alert-table-ssl-manage w-hidden"></div>
 
 <div class="table-container clearfix">
     <table id="tableSslList" class="table table-list">
@@ -26,6 +26,8 @@
                                     <label class="label label-default">{lang key='clientareaexpired'}</label>
                                 {elseif $sslProduct->addon->nextDueDateProperties['daysTillExpiry'] < 60}
                                     <label class="label label-danger">{lang key='expiringsoon'}</label>
+                                {else}
+                                    {if $sslProduct->wasInstantIssuanceAttempted() && $sslProduct->wasInstantIssuanceSuccessful()}&nbsp;<i class="fas fa-bolt" title="{lang key='sslinstantissuancebenefit'}">{/if}
                                 {/if}
                             {/if}
                         </td>
@@ -35,8 +37,8 @@
                                 {$sslProduct->validationType}
                             </label>
                         </td>
-                        <td><span class="hidden">{$sslProduct->addon->registrationDate}</span>{$sslProduct->addon->registrationDateFormatted}</td>
-                        <td><span class="hidden">{$sslProduct->addon->nextDueDate}</span>{$sslProduct->addon->nextDueDateFormatted}</td>
+                        <td><span class="w-hidden">{$sslProduct->addon->registrationDate}</span>{$sslProduct->addon->registrationDateFormatted}</td>
+                        <td><span class="w-hidden">{$sslProduct->addon->nextDueDate}</span>{$sslProduct->addon->nextDueDateFormatted}</td>
                         <td>
                             {if $sslProduct->status == $sslStatusAwaitingIssuance}
                                 <button class="btn btn-default btn-sm btn-resend-approver-email" data-url="{routePath('clientarea-ssl-certificates-resend-approver-email')}" data-addonid="{$sslProduct->addonId}">{lang key='sslresendmail'}</button>
@@ -70,8 +72,8 @@
                                 {$sslProduct->validationType}
                             </label>
                         </td>
-                        <td><span class="hidden">{$sslProduct->service->registrationDate}</span>{$sslProduct->service->registrationDateFormatted}</td>
-                        <td><span class="hidden">{$sslProduct->service->nextDueDate}</span>{$sslProduct->service->nextDueDateFormatted}</td>
+                        <td><span class="w-hidden">{$sslProduct->service->registrationDate}</span>{$sslProduct->service->registrationDateFormatted}</td>
+                        <td><span class="w-hidden">{$sslProduct->service->nextDueDate}</span>{$sslProduct->service->nextDueDateFormatted}</td>
                         <td>
                             {if $sslProduct->status == $sslStatusAwaitingIssuance}
                                 <button class="btn btn-default btn-sm btn-resend-approver-email" data-url="{routePath('clientarea-ssl-certificates-resend-approver-email')}" data-serviceid="{$sslProduct->serviceId}">{lang key='sslresendmail'}</button>

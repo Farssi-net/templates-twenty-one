@@ -1,16 +1,16 @@
 <?php
 
 # Logo
-if (file_exists(ROOTDIR.'/assets/img/logovaaleareunat.png')) $pdf->Image(ROOTDIR.'/assets/img/logovaaleareunat.png', 15, 25, 40);
-elseif (file_exists(ROOTDIR.'/assets/img/logo.jpg')) $pdf->Image(ROOTDIR.'/assets/img/logo.jpg', 15, 25, 25);
-else $pdf->Image(ROOTDIR.'/assets/img/placeholder.png', 15, 25, 25);
+if (file_exists(ROOTDIR.'/assets/img/logo.png')) $pdf->Image(ROOTDIR.'/assets/img/logo.png', 20, 25, 75);
+elseif (file_exists(ROOTDIR.'/assets/img/logo.jpg')) $pdf->Image(ROOTDIR.'/assets/img/logo.jpg', 20, 25, 75);
+else $pdf->Image(ROOTDIR.'/assets/img/placeholder.png', 20, 25, 75);
 
 # Company Details
 $pdf->SetFont($pdfFont,'',13);
 $pdf->Cell(0,6,trim($companyaddress[0]),0,1,'R');
 $pdf->SetFont($pdfFont,'',9);
 for ( $i = 1; $i <= ((count($companyaddress)>6) ? count($companyaddress) : 6); $i += 1) {
-    $pdf->Cell(0,4,trim($companyaddress[$i]),0,1,'R');
+    $pdf->Cell(0, 4, trim($companyaddress[$i] ?? ''), 0, 1, 'R');
 }
 $pdf->Ln(5);
 
@@ -66,11 +66,11 @@ $pdf->SetFont($pdfFont,'',8);
 
 $tblhtml = '<table width="100%" bgcolor="#ccc" cellspacing="1" cellpadding="2" border="0">
     <tr height="30" bgcolor="#efefef" style="font-weight:bold;text-align:center;">
-        <td width="7%">'.$_LANG['quoteqty'].'</td>
-        <td width="52%">'.$_LANG['quotedesc'].'</td>
-        <td width="12%">'.$_LANG['quoteunitprice'].'</td>
-        <td width="12%">'.$_LANG['quotediscount'].'</td>
-        <td width="17%">'.$_LANG['quotelinetotal'].'</td>
+        <td width="5%">'.$_LANG['quoteqty'].'</td>
+        <td width="45%">'.$_LANG['quotedesc'].'</td>
+        <td width="15%">'.$_LANG['quoteunitprice'].'</td>
+        <td width="15%">'.$_LANG['quotediscount'].'</td>
+        <td width="20%">'.$_LANG['quotelinetotal'].'</td>
     </tr>';
 foreach ($lineitems AS $item) {
     $tblhtml .= '

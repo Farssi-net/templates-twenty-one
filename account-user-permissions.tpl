@@ -1,30 +1,38 @@
-<h2>{lang key="userManagement.managePermissions"}</h2>
+{include file="$template/includes/flashmessage.tpl"}
 
-<p>{$user->email}</p>
+<div class="card">
+    <div class="card-body">
+        <h3 class="card-title">{lang key='userManagement.managePermissions'}</h3>
 
-<h3>{lang key="userManagement.permissions"}</h3>
+        <p>{$user->email}</p>
 
-<form method="post" action="{routePath('account-users-permissions-save', $user->id)}">
+        <p class="h5">{lang key="userManagement.permissions"}</p>
 
-    {foreach $permissions as $permission}
-        <label class="checkbox-inline">
-            <input type="checkbox" name="perms[{$permission.key}]" value="1"{if $userPermissions->hasPermission($permission.key)} checked{/if}>
-            {$permission.title}
-            -
-            {$permission.description}
-        </label>
-        <br>
-    {/foreach}
+        <form method="post" action="{routePath('account-users-permissions-save', $user->id)}">
 
-    <br>
+            {foreach $permissions as $permission}
+                <label class="form-check form-check-inline">
+                    <input type="checkbox" class="form-check-input" name="perms[{$permission.key}]" value="1"{if $userPermissions->hasPermission($permission.key)} checked{/if}>
+                    {$permission.title}
+                    <span class="d-none d-md-inline">-</span>
+                    <br class="d-md-none">
+                    <span class="text-muted">{$permission.description}</span>
+                </label>
+                <br>
+            {/foreach}
 
-    <p>
-        <button type="submit" class="btn btn-primary">
-            {lang key="clientareasavechanges"}
-        </button>
-        <a href="{routePath('account-users')}" class="btn btn-default">
-            {lang key="clientareacancel"}
-        </a>
-    </p>
+            <br>
 
-</form>
+            <p>
+                <button type="submit" class="btn btn-primary">
+                    {lang key="clientareasavechanges"}
+                </button>
+                <a href="{routePath('account-users')}" class="btn btn-default">
+                    {lang key="clientareacancel"}
+                </a>
+            </p>
+
+        </form>
+
+    </div>
+</div>

@@ -1,6 +1,6 @@
-<link href="{$WEB_ROOT}/templates/{$template}/store/css/style.css" rel="stylesheet">
+<link href="{assetPath file='store.css'}" rel="stylesheet">
 
-<div class="landing-page weebly">
+<div class="landing-page bg-white weebly">
 
     <div class="hero">
         <div class="container">
@@ -12,22 +12,19 @@
         </div>
     </div>
 
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-light bg-light navbar-expand-md p-0">
       <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-landing-page" aria-expanded="false">
-            <span class="sr-only">{lang key="store.toggleNav"}</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
+        <span class="navbar-brand"></span>
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#nav-landing-page" aria-expanded="false">
+          <span class="sr-only">{lang key="toggleNav"}</span>
+          <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="nav-landing-page">
           <ul class="nav navbar-nav">
-            <li><a href="#" onclick="smoothScroll('#overview');return false">{lang key="store.websiteBuilder.tab.overview"}</a></li>
-            <li><a href="#" onclick="smoothScroll('#features');return false">{lang key="store.websiteBuilder.tab.features"}</a></li>
-            <li><a href="#" onclick="smoothScroll('#pricing');return false">{lang key="store.websiteBuilder.tab.pricing"}</a></li>
-            <li><a href="#" onclick="smoothScroll('#faq');return false">{lang key="store.websiteBuilder.tab.faq"}</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" onclick="smoothScroll('#overview');return false">{lang key="store.websiteBuilder.tab.overview"}</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" onclick="smoothScroll('#features');return false">{lang key="store.websiteBuilder.tab.features"}</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" onclick="smoothScroll('#pricing');return false">{lang key="store.websiteBuilder.tab.pricing"}</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" onclick="smoothScroll('#faq');return false">{lang key="store.websiteBuilder.tab.faq"}</a></li>
           </ul>
         </div>
       </div>
@@ -81,8 +78,6 @@
                     <p>{lang key="store.websiteBuilder.features.templatesDescription"}</p>
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="feature">
                     <div class="icon"><img src="{$WEB_ROOT}/assets/img/marketconnect/weebly/icons/gallery.png"></div>
@@ -119,7 +114,7 @@
         <div class="container">
 
             <div class="row">
-                <div class="col-sm-9">
+                <div class="col-md-9">
                     <div class="btn-group" role="group">
                         {foreach $billingCycles as $cycle}
                             <button type="button" class="btn btn-default cycle-change{if $cycle@first} active{/if}" data-cycle="{$cycle}">
@@ -130,7 +125,7 @@
                     <br><br>
                 </div>
                 {if !$loggedin && $currencies}
-                    <div class="col-sm-3">
+                    <div class="col-md-3">
                         <form method="post" action="">
                             <select name="currency" class="form-control currency-selector" onchange="submit()">
                                 <option>{lang key="changeCurrency"} ({$activeCurrency.prefix} {$activeCurrency.code})</option>
@@ -145,9 +140,9 @@
 
             {if $litePlan}
                 <div class="weebly-lite-plan">
-                    <div class="pricing pull-right">
+                    <div class="pricing float-right">
                         {foreach $litePlan->pricing()->allAvailableCycles() as $pricing}
-                            <h4 class="pricing-text {$pricing->cycle()}{if !$pricing@first} hidden{/if}">
+                            <h4 class="pricing-text {$pricing->cycle()}{if !$pricing@first} w-hidden{/if}">
                                 {$pricing->toFullString()}
                             </h4>
                         {foreachelse}
@@ -155,12 +150,12 @@
                                 -
                             {/if}
                         {/foreach}
-                        <h4 class="pricing-text not-available hidden">-</h4>
+                        <h4 class="pricing-text not-available w-hidden">-</h4>
                     </div>
                     <h4>{lang key="store.websiteBuilder.pricing.free.headline"}</h4>
                     <h5>{lang key="store.websiteBuilder.pricing.free.tagline"}</h5>
                     <p>{$litePlan->description}</p>
-                    <form method="post" action="{routePath('store-order')}">
+                    <form method="post" action="{routePath('cart-order')}">
                         <input type="hidden" name="pid" value="{$litePlan->id}">
                         <input type="hidden" name="billingcycle" value="">
                         <button type="submit" class="btn btn-default btn-signup">
@@ -173,7 +168,7 @@
             <div class="row weebly-plans">
                 {if count($products) > 0}
                     {foreach $products as $key => $product}
-                        <div class="{if count($products) == 1}col-sm-6 col-sm-offset-3{elseif count($products) == 2}col-sm-5{if $key == 0} col-sm-offset-1{/if}{elseif count($products) == 3}col-sm-4{else}col-sm-3{/if}">
+                        <div class="{if count($products) == 1}col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4{elseif count($products) == 2}col-sm-6{if $key == 0} offset-sm-1{/if}{elseif count($products) == 3}col-md-4{else}col-sm-3{/if}">
                             <div class="pricing-item">
                                 <div class="header">
                                     <h4>{$product->name}</h4>
@@ -181,7 +176,7 @@
                                 </div>
                                 <div class="price">
                                     {foreach $product->pricing()->allAvailableCycles() as $pricing}
-                                        <span class="pricing-text {$pricing->cycle()}{if !$pricing@first} hidden{/if}">
+                                        <span class="pricing-text {$pricing->cycle()}{if !$pricing@first} w-hidden{/if}">
                                             {$pricing->toFullString()}
                                         </span>
                                     {foreachelse}
@@ -189,7 +184,7 @@
                                             -
                                         {/if}
                                     {/foreach}
-                                    <span class="pricing-text not-available hidden">
+                                    <span class="pricing-text not-available w-hidden">
                                         -
                                     </span>
                                 </div>
@@ -210,7 +205,7 @@
                                     {/foreach}
                                 </ul>
                             </div>
-                            <form method="post" action="{routePath('store-order')}">
+                            <form method="post" action="{routePath('cart-order')}">
                                 <input type="hidden" name="pid" value="{$product->id}">
                                 <input type="hidden" name="billingcycle" value="">
                                 <button type="submit" class="btn btn-primary btn-block btn-signup">{lang key="signup"}</button>
@@ -218,7 +213,7 @@
                         </div>
                     {/foreach}
                 {elseif $inPreview}
-                    <div class="col-xs-12 lead text-center">
+                    <div class="col-12 lead text-center">
                         {lang key="store.websiteBuilder.adminPreview"}
                     </div>
                 {/if}
@@ -237,7 +232,7 @@
                             <h4>{lang key="store.websiteBuilder.faq.q$row"}</h4>
                             <p>{lang key="store.websiteBuilder.faq.a$row"}</p>
                             {if $row@last && $row != 8}
-                                <div class="hidden-md hidden-lg"><hr></div>
+                                <div class="d-md-none"><hr></div>
                             {else}
                                 <hr>
                             {/if}
@@ -263,4 +258,29 @@
 
 </div>
 
-<script src="{$WEB_ROOT}/templates/{$template}/store/weebly/master.js"></script>
+<script>
+    jQuery(document).ready(function(){
+        jQuery('.landing-page.weebly .cycle-change').on('click', function() {
+            var newCycle = jQuery(this).data('cycle');
+            jQuery('.row.weebly-plans .pricing-text').hide();
+            jQuery('.landing-page.weebly .' + newCycle).show();
+            jQuery('.landing-page.weebly .cycle-change').removeClass('active');
+            jQuery(this).addClass('active');
+            jQuery('.landing-page.weebly .pricing input[name="billingcycle"]').val(newCycle);
+            jQuery('.weebly-plans div.pricing-item').each(function(index) {
+                if (jQuery(this).find('.' + newCycle).length <= 0) {
+                    jQuery(this).find('span.not-available').show();
+                    jQuery(this).parent('div').find('.btn-signup').prop('disabled', true);
+                    jQuery(this).fadeTo('slow', 0.5);
+                } else {
+                    jQuery(this).find('span.not-available').hide();
+                    jQuery(this).parent('div').find('.btn-signup').prop('disabled', false);
+                    jQuery(this).fadeTo('slow', 1);
+                }
+            });
+        });
+
+        var startCycle = jQuery('.btn.cycle-change.active').data('cycle');
+        jQuery('.landing-page.weebly .pricing input[name="billingcycle"]').val(startCycle);
+    });
+</script>

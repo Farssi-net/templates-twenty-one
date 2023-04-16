@@ -1,6 +1,6 @@
-<link href="{$WEB_ROOT}/templates/{$template}/store/css/style.css" rel="stylesheet">
+<link href="{assetPath file='store.css'}" rel="stylesheet">
 
-<div class="landing-page ssl">
+<div class="landing-page bg-white ssl">
 
     <div class="hero">
         <div class="container">
@@ -15,14 +15,14 @@
         <div class="container">
 
             <div class="row">
-                <div class="col-sm-4 col-md-3 col-sm-push-8 col-md-push-9 text-right hidden-xs">
+                <div class="col-sm-4 col-md-3 order-2 text-right d-none d-sm-block">
                     <img src="{$WEB_ROOT}/assets/img/marketconnect/symantec/ssl-subs.png">
                 </div>
-                <div class="col-sm-8 col-md-9 col-sm-pull-4 col-md-pull-3">
+                <div class="col-sm-8 col-md-9 order-1">
 
                     <h3>{lang key="store.ssl.wildcard.descriptionTitle"}</h3>
 
-                    <div class="text-center visible-xs">
+                    <div class="text-center d-block d-sm-none">
                         <img src="{$WEB_ROOT}/assets/img/marketconnect/symantec/ssl-subs.png">
                         <br><br>
                     </div>

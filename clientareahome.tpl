@@ -1,105 +1,78 @@
-<div class="tiles clearfix">
-    <div class="row">
-        <div class="client-info row">
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                <div class="info-box" onclick="window.location='clientarea.php?action=services'">
-                    <div class="icon blue">
-                        <i class="fad fa-server"></i>
-                    </div>
-                    <div class="content-card">
-                        <div class="text">{$LANG.navservices}</div>
-                        <div class="number">{$clientsstats.productsnumactive}</div>
-                    </div>
-                </div>
+{include file="$template/includes/flashmessage.tpl"}
+
+<div class="tiles mb-4">
+    <div class="row no-gutters">
+        <div class="col-6 col-xl-3">
+            <a href="clientarea.php?action=services" class="tile">
+                <i class="fas fa-cube"></i>
+                <div class="stat">{$clientsstats.productsnumactive}</div>
+                <div class="title">{lang key='navservices'}</div>
+                <div class="highlight bg-color-blue"></div>
+            </a>
+        </div>
+        {if $clientsstats.numdomains || $registerdomainenabled || $transferdomainenabled}
+            <div class="col-6 col-xl-3">
+                <a href="clientarea.php?action=domains" class="tile">
+                    <i class="fas fa-globe"></i>
+                    <div class="stat">{$clientsstats.numactivedomains}</div>
+                    <div class="title">{lang key='navdomains'}</div>
+                    <div class="highlight bg-color-green"></div>
+                </a>
             </div>
-            {if $registerdomainenabled || $transferdomainenabled}
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                <div class="info-box" onclick="window.location='clientarea.php?action=domains'">
-                    <div class="icon green">
-                        <i class="fad fa-globe-europe"></i>
-                    </div>
-                    <div class="content-card">
-                        <div class="text">{$LANG.navdomains}</div>
-                        <div class="number">{$clientsstats.numactivedomains}</div>
-                    </div>
-                </div>
+        {elseif $condlinks.affiliates && $clientsstats.isAffiliate}
+            <div class="col-6 col-xl-3">
+                <a href="affiliates.php" class="tile">
+                    <i class="fas fa-shopping-cart"></i>
+                    <div class="stat">{$clientsstats.numaffiliatesignups}</div>
+                    <div class="title">{lang key='affiliatessignups'}</div>
+                    <div class="highlight bg-color-green"></div>
+                </a>
             </div>
-            {elseif $condlinks.affiliates && $clientsstats.isAffiliate}
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                <div class="info-box" onclick="window.location='affiliates.php'">
-                    <div class="icon red">
-                        <i class="fad fa-server"></i>
-                    </div>
-                    <div class="content-card">
-                        <div class="text">{$LANG.affiliatessignups}</div>
-                        <div class="number">{$clientsstats.numaffiliatesignups}</div>
-                    </div>
-                </div>
+        {else}
+            <div class="col-6 col-xl-3">
+                <a href="clientarea.php?action=quotes" class="tile">
+                    <i class="far fa-file-alt"></i>
+                    <div class="stat">{$clientsstats.numquotes}</div>
+                    <div class="title">{lang key='quotes'}</div>
+                    <div class="highlight bg-color-green"></div>
+                </a>
             </div>
-            {else}
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                <div class="info-box" onclick="window.location='clientarea.php?action=quotes'">
-                    <div class="icon green">
-                        <i class="fad fa-print"></i>
-                    </div>
-                    <div class="content-card">
-                        <div class="text">{$LANG.quotes}</div>
-                        <div class="number">{$clientsstats.numquotes}</div>
-                    </div>
-                </div>
-            </div>
-            {/if}
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                <div class="info-box" onclick="window.location='supporttickets.php'">
-                    <div class="icon red">
-                        <i class="fad fa-user-headset"></i>
-                    </div>
-                    <div class="content-card">
-                        <div class="text">{$LANG.navtickets}</div>
-                        <div class="number">{$clientsstats.numactivetickets}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                <div class="info-box" onclick="window.location='clientarea.php?action=invoices'">
-                    <div class="icon orange">
-                        <i class="fad fa-file-invoice-dollar"></i>
-                    </div>
-                    <div class="content-card">
-                        <div class="text">{$LANG.navinvoices}</div>
-                        <div class="number">{$clientsstats.numunpaidinvoices}</div>
-                    </div>
-                </div>
-            </div>
+        {/if}
+        <div class="col-6 col-xl-3">
+            <a href="supporttickets.php" class="tile">
+                <i class="fas fa-comments"></i>
+                <div class="stat">{$clientsstats.numactivetickets}</div>
+                <div class="title">{lang key='navtickets'}</div>
+                <div class="highlight bg-color-red"></div>
+            </a>
+        </div>
+        <div class="col-6 col-xl-3">
+            <a href="clientarea.php?action=invoices" class="tile">
+                <i class="fas fa-credit-card"></i>
+                <div class="stat">{$clientsstats.numunpaidinvoices}</div>
+                <div class="title">{lang key='navinvoices'}</div>
+                <div class="highlight bg-color-gold"></div>
+            </a>
         </div>
     </div>
 </div>
 
-<form role="form" method="post" action="clientarea.php?action=kbsearch">
-    <div class="row">
-        <div class="col-md-12 home-kb-search">
-            <input type="text" name="search" class="form-control input-lg" placeholder="{$LANG.clientHomeSearchKb}" />
-            <i class="fas fa-search"></i>
-        </div>
-    </div>
-</form>
-
-{foreach from=$addons_html item=addon_html}
+{foreach $addons_html as $addon_html}
     <div>
         {$addon_html}
     </div>
 {/foreach}
 
-<div class="client-home-panels">
+<div class="client-home-cards">
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-12">
 
             {function name=outputHomePanels}
-                <div menuItemName="{$item->getName()}" class="panel panel-default panel-accent-{$item->getExtra('color')}{if $item->getClass()} {$item->getClass()}{/if}"{if $item->getAttribute('id')} id="{$item->getAttribute('id')}"{/if}>
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
+                <div menuItemName="{$item->getName()}" class="card card-accent-{$item->getExtra('color')}{if $item->getClass()} {$item->getClass()}{/if}"{if $item->getAttribute('id')} id="{$item->getAttribute('id')}"{/if}>
+                    <div class="card-header">
+                        <h3 class="card-title m-0">
                             {if $item->getExtra('btn-link') && $item->getExtra('btn-text')}
-                                <div class="pull-right">
+                                <div class="float-right">
                                     <a href="{$item->getExtra('btn-link')}" class="btn btn-default bg-color-{$item->getExtra('color')} btn-xs">
                                         {if $item->getExtra('btn-icon')}<i class="{$item->getExtra('btn-icon')}"></i>{/if}
                                         {$item->getExtra('btn-text')}
@@ -112,7 +85,7 @@
                         </h3>
                     </div>
                     {if $item->hasBodyHtml()}
-                        <div class="panel-body">
+                        <div class="card-body">
                             {$item->getBodyHtml()}
                         </div>
                     {/if}
@@ -120,13 +93,13 @@
                         <div class="list-group{if $item->getChildrenAttribute('class')} {$item->getChildrenAttribute('class')}{/if}">
                             {foreach $item->getChildren() as $childItem}
                                 {if $childItem->getUri()}
-                                    <a menuItemName="{$childItem->getName()}" href="{$childItem->getUri()}" class="list-group-item{if $childItem->getClass()} {$childItem->getClass()}{/if}{if $childItem->isCurrent()} active{/if}"{if $childItem->getAttribute('dataToggleTab')} data-toggle="tab"{/if}{if $childItem->getAttribute('target')} target="{$childItem->getAttribute('target')}"{/if} id="{$childItem->getId()}">
+                                    <a menuItemName="{$childItem->getName()}" href="{$childItem->getUri()}" class="list-group-item list-group-item-action{if $childItem->getClass()} {$childItem->getClass()}{/if}{if $childItem->isCurrent()} active{/if}"{if $childItem->getAttribute('dataToggleTab')} data-toggle="tab"{/if}{if $childItem->getAttribute('target')} target="{$childItem->getAttribute('target')}"{/if} id="{$childItem->getId()}">
                                         {if $childItem->hasIcon()}<i class="{$childItem->getIcon()}"></i>&nbsp;{/if}
                                         {$childItem->getLabel()}
                                         {if $childItem->hasBadge()}&nbsp;<span class="badge">{$childItem->getBadge()}</span>{/if}
                                     </a>
                                 {else}
-                                    <div menuItemName="{$childItem->getName()}" class="list-group-item{if $childItem->getClass()} {$childItem->getClass()}{/if}" id="{$childItem->getId()}">
+                                    <div menuItemName="{$childItem->getName()}" class="list-group-item list-group-item-action{if $childItem->getClass()} {$childItem->getClass()}{/if}" id="{$childItem->getId()}">
                                         {if $childItem->hasIcon()}<i class="{$childItem->getIcon()}"></i>&nbsp;{/if}
                                         {$childItem->getLabel()}
                                         {if $childItem->hasBadge()}&nbsp;<span class="badge">{$childItem->getBadge()}</span>{/if}
@@ -135,7 +108,7 @@
                             {/foreach}
                         </div>
                     {/if}
-                    <div class="panel-footer">
+                    <div class="card-footer">
                         {if $item->hasFooterHtml()}
                             {$item->getFooterHtml()}
                         {/if}
@@ -144,13 +117,23 @@
             {/function}
 
             {foreach $panels as $item}
+                {if $item->getExtra('colspan')}
+                    {outputHomePanels}
+                    {assign "panels" $panels->removeChild($item->getName())}
+                {/if}
+            {/foreach}
+
+        </div>
+        <div class="col-md-6 col-lg-12 col-xl-6">
+
+            {foreach $panels as $item}
                 {if $item@iteration is odd}
                     {outputHomePanels}
                 {/if}
             {/foreach}
 
         </div>
-        <div class="col-sm-6">
+        <div class="col-md-6 col-lg-12 col-xl-6">
 
             {foreach $panels as $item}
                 {if $item@iteration is even}

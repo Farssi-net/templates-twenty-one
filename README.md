@@ -1,6 +1,6 @@
-# WHMCS Six Client Area Template Theme
+# WHMCS Twenty-One Client Area Template Theme
 
-Welcome to the WHMCS “Six” template repository!  This repository is dedicated to providing version-by-version changes of the “Six” template as published in [WHMCS](https://downloads.whmcs.com/).  Sharing these changes through GitHub as a read-only repository enables you to quick inspect and import these changes for your custom theme.
+Welcome to the WHMCS “Twenty-One” template repository!  This repository is dedicated to providing version-by-version changes of the “Twenty-One” template as published in [WHMCS](https://downloads.whmcs.com/).  Sharing these changes through GitHub as a read-only repository enables you to quick inspect and import these changes for your custom theme.
 
 ## Compatibility
 
@@ -24,8 +24,8 @@ The below is an example of how you might check this repository out locally into 
 # Navigate to your WHMCS templates directory
 cd ~/whmcs/templates/
 
-# Clone the Six template theme repo into your new template directory
-git clone git@github.com:WHMCS/templates-six.git my-template-name
+# Clone the Twenty-One template theme repo into your new template directory
+git clone git@github.com:WHMCS/templates-twenty-one.git my-template-name
 
 # Change directory to the template directory
 cd my-template-name
@@ -40,7 +40,7 @@ When an update of WHMCS is published, the template changes will be propagated to
 # Navigate to the template directory
 cd ~/whmcs/templates/my-template-name
 
-# Fetch the latest updates from the Six template theme repo
+# Fetch the latest updates from the Twenty-One template theme repo
 git fetch origin
 
 # Ensure your custom template branch is checked out
@@ -53,11 +53,11 @@ git merge origin/master
 ## Viewing the Template Changes
 
 A distinct tag is created for each published version of WHMCS.  You can easily view
-any span of changes you like using the [Github Comparison View](https://github.com/WHMCS/templates-six/compare).
+any span of changes you like using the [Github Comparison View](https://github.com/WHMCS/templates-twenty-one/compare).
 Simply, select a pair of version tags in that interface!
 
 ## Useful Links
 
-* [Documentation](http://docs.whmcs.com/Customising_the_Six_Theme)
-* [Technical Support](http://www.whmcs.com/support)
-* [WHMCS Website](http://www.whmcs.com/)
+* [Documentation](https://developers.whmcs.com/themes/)
+* [Technical Support](https://www.whmcs.com/support)
+* [WHMCS Website](https://www.whmcs.com/)

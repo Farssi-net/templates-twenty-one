@@ -1,11 +1,11 @@
 <link href="{assetPath file='store.css'}" rel="stylesheet">
 
-<div class="landing-page sitelockvpn">
+<div class="landing-page bg-white sitelockvpn">
 
     <div class="hero">
         <div class="container">
             <div class="hero-bg">
-                <img src="{$WEB_ROOT}/assets/img/marketconnect/sitelockvpn/header-img.png" class="hidden-md hidden-lg">
+                <img src="{$WEB_ROOT}/assets/img/marketconnect/sitelockvpn/header-img.png" class="d-lg-none">
                 <h1>{lang key='store.sitelockvpn.subtitle1'}<br>{lang key='store.sitelockvpn.subtitle2'}</h1>
                 <h2>{lang key='store.sitelockvpn.tagline1'}<br>{lang key='store.sitelockvpn.tagline2'}</h2>
                 <a href="#plans" class="btn-start">{lang key='store.sitelockvpn.getStarted'}</a>
@@ -16,10 +16,10 @@
     <div class="feature">
         <div class="container">
             <div class="row">
-                <div class="col-sm-5 text-center">
+                <div class="col-md-5 text-center">
                     <img src="{$WEB_ROOT}/assets/img/marketconnect/sitelockvpn/feature-icon-01.png">
                 </div>
-                <div class="col-sm-7">
+                <div class="col-md-7">
                     <h3>{lang key='store.sitelockvpn.feature1.title'}</h3>
                     <p>{lang key='store.sitelockvpn.feature1.subtitle'}</p>
                     <ul class="highlights">
@@ -38,10 +38,10 @@
     <div class="feature">
         <div class="container">
             <div class="row">
-                <div class="col-sm-5 text-center">
+                <div class="col-md-5 text-center">
                     <img src="{$WEB_ROOT}/assets/img/marketconnect/sitelockvpn/feature-icon-02.png">
                 </div>
-                <div class="col-sm-7">
+                <div class="col-md-7">
                     <h3>{lang key='store.sitelockvpn.feature2.title'}</h3>
                     <p>{lang key='store.sitelockvpn.feature2.subtitle'}</p>
                     <ul class="highlights">
@@ -60,10 +60,10 @@
     <div class="feature alternate-bg devices">
         <div class="container">
             <div class="row">
-                <div class="col-sm-5 text-center">
+                <div class="col-md-5 text-center">
                     <img src="{$WEB_ROOT}/assets/img/marketconnect/sitelockvpn/feature-icon-03.png">
                 </div>
-                <div class="col-sm-7">
+                <div class="col-md-7">
                     <h3>{lang key='store.sitelockvpn.feature3.title'}</h3>
                     <p>{lang key='store.sitelockvpn.feature3.subtitle'}</p>
                     <p>{lang key='store.sitelockvpn.feature3.subtitle2'}</p>
@@ -89,7 +89,7 @@
             {if count($plans) > 0}
                 {if !$loggedin && $currencies}
                     <div class="row">
-                        <div class="col-md-3 col-md-offset-9">
+                        <div class="col-md-3 offset-md-9">
                             <form method="post" action="">
                                 <select name="currency" class="form-control currency-selector" onchange="submit()">
                                     <option>{lang key="changeCurrency"} ({$activeCurrency.prefix} {$activeCurrency.code})</option>
@@ -104,7 +104,7 @@
                 <div class="row">
                     {foreach $plans as $plan}
                         {foreach $pricings[$plan->id] as $pricing}
-                            <div class="{if $pricing@total == 1}col-sm-4 col-sm-offset-4{elseif $pricing@total == 2}col-sm-6{elseif $pricing@total == 2}col-sm-6{elseif $pricing@total == 3}col-md-4 col-sm-4{elseif $pricing@total == 4}col-lg-3 col-sm-6{elseif $pricing@total == 5}col-md-4 col-sm-6{else}col-lg-3 col-sm-4{/if}">
+                            <div class="{if $pricing@total == 1}col-sm-4 offset-sm-4{elseif $pricing@total == 2}col-sm-6{elseif $pricing@total == 2}col-sm-6{elseif $pricing@total == 3}col-md-4 col-sm-4{elseif $pricing@total == 4}col-xl-3 col-sm-6{elseif $pricing@total == 5}col-md-4 col-sm-6{else}col-lg-3 col-sm-4{/if}">
                                 <div class="pricing-box">
                                     <div class="cycle">
                                         {if $inPreview && is_array($pricing)}
@@ -181,7 +181,7 @@
             <div class="dividing-line"></div>
 
             <div class="row">
-                <div class="col-sm-6 col-md-4">
+                <div class="col-sm-6 col-lg-4">
                     <span>{lang key='store.sitelockvpn.plans.features.noRestrictions'}</span>
                     <img src="{$WEB_ROOT}/assets/img/marketconnect/sitelockvpn/icon-ok.png">
                     <span>{lang key='store.sitelockvpn.plans.features.highSpeed'}</span>
@@ -191,7 +191,7 @@
                     <span>{lang key='store.sitelockvpn.plans.features.encryption'}</span>
                     <img src="{$WEB_ROOT}/assets/img/marketconnect/sitelockvpn/icon-ok.png">
                 </div>
-                <div class="col-sm-6 col-md-4">
+                <div class="col-sm-6 col-lg-4">
                     <span>{lang key='store.sitelockvpn.plans.features.protocol'}</span>
                     <img src="{$WEB_ROOT}/assets/img/marketconnect/sitelockvpn/icon-ok.png">
                     <span>{lang key='store.sitelockvpn.plans.features.simultaneous'}</span>
@@ -199,13 +199,11 @@
                     <span>{lang key='store.sitelockvpn.plans.features.apps'}</span>
                     <img src="{$WEB_ROOT}/assets/img/marketconnect/sitelockvpn/icon-ok.png">
                 </div>
-                <div class="col-sm-6 col-md-4">
+                <div class="col-sm-6 col-lg-4">
                     <span>{lang key='store.sitelockvpn.plans.features.switching'}</span>
                     <img src="{$WEB_ROOT}/assets/img/marketconnect/sitelockvpn/icon-ok.png">
                     <span>{lang key='store.sitelockvpn.plans.features.countries'}</span>
                     <img src="{$WEB_ROOT}/assets/img/marketconnect/sitelockvpn/icon-ok.png">
-                </div>
-                <div class="col-sm-6 col-md-4">
                     <span>{lang key='store.sitelockvpn.plans.features.servers'}</span>
                     <img src="{$WEB_ROOT}/assets/img/marketconnect/sitelockvpn/icon-ok.png">
                     <span>{lang key='store.sitelockvpn.plans.features.support'}</span>
@@ -223,16 +221,16 @@
             <div class="row">
                 <div class="col-md-3">
                     <br><br>
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-4 col-md-12">
+                    <div class="row text-center text-md-left">
+                        <div class="col-sm-6 col-md-4 col-md-12">
                             <span>1000+</span>
                             <em>{lang key='store.sitelockvpn.world.features.servers'}</em>
                         </div>
-                        <div class="col-xs-6 col-sm-4 col-md-12">
+                        <div class="col-sm-6 col-md-4 col-md-12">
                             <span>40+</span>
                             <em>{lang key='store.sitelockvpn.world.features.countries'}</em>
                         </div>
-                        <div class="col-sm-4 col-md-12">
+                        <div class="col-md-4 col-md-12">
                             <span>{lang key='store.sitelockvpn.world.features.unlimited'}</span>
                             <em>{lang key='store.sitelockvpn.world.features.bandwidth'}</em>
                         </div>
