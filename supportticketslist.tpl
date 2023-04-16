@@ -1,8 +1,8 @@
 {include file="$template/includes/tablelist.tpl" tableName="TicketsList" filterColumn="2"}
-
-<script>
-    jQuery(document).ready(function () {
-        var table = jQuery('#tableTicketsList').show().DataTable();
+<script type="text/javascript">
+    jQuery(document).ready( function ()
+    {
+        var table = jQuery('#tableTicketsList').removeClass('hidden').DataTable();
         {if $orderby == 'did' || $orderby == 'dept'}
             table.order(0, '{$sort}');
         {elseif $orderby == 'subject' || $orderby == 'title'}
@@ -13,22 +13,21 @@
             table.order(3, '{$sort}');
         {/if}
         table.draw();
-        jQuery('#tableLoading').hide();
+        jQuery('#tableLoading').addClass('hidden');
     });
 </script>
-
 <div class="table-container clearfix">
-    <table id="tableTicketsList" class="table table-list w-hidden">
+    <table id="tableTicketsList" class="table table-list hidden">
         <thead>
             <tr>
-                <th>{lang key='supportticketsdepartment'}</th>
-                <th>{lang key='supportticketssubject'}</th>
-                <th>{lang key='supportticketsstatus'}</th>
-                <th>{lang key='supportticketsticketlastupdated'}</th>
+                <th>{$LANG.supportticketsdepartment}</th>
+                <th>{$LANG.supportticketssubject}</th>
+                <th>{$LANG.supportticketsstatus}</th>
+                <th>{$LANG.supportticketsticketlastupdated}</th>
             </tr>
         </thead>
         <tbody>
-            {foreach $tickets as $ticket}
+            {foreach from=$tickets item=ticket}
                 <tr onclick="window.location='viewticket.php?tid={$ticket.tid}&amp;c={$ticket.c}'">
                     <td>
                         {$ticket.department}
@@ -40,12 +39,12 @@
                         </a>
                     </td>
                     <td>
-                        <span class="label status {if is_null($ticket.statusColor)}status-{$ticket.statusClass}"{else}status-custom" style="background-color:{$ticket.statusColor}"{/if}>
+                        <span class="label status {if is_null($ticket.statusColor)}status-{$ticket.statusClass}"{else}status-custom" style="border-color: {$ticket.statusColor}; color: {$ticket.statusColor}"{/if}>
                             {$ticket.status|strip_tags}
                         </span>
                     </td>
                     <td class="text-center">
-                        <span class="w-hidden">{$ticket.normalisedLastReply}</span>
+                        <span class="hidden">{$ticket.normalisedLastReply}</span>
                         {$ticket.lastreply}
                     </td>
                 </tr>
@@ -53,6 +52,6 @@
         </tbody>
     </table>
     <div class="text-center" id="tableLoading">
-        <p><i class="fas fa-spinner fa-spin"></i> {lang key='loading'}</p>
+        <p><i class="fas fa-spinner fa-spin"></i> {$LANG.loading}</p>
     </div>
 </div>

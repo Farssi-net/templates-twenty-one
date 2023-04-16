@@ -3,13 +3,12 @@
         var stateNotRequired = true,
             paymentForm = '';
 
-        function validateBankAccountInput(e) {
+        function validateBankAccountInput(e)
+        {
             var newOrExisting = jQuery('input[name="paymethod"]:checked').val(),
                 submitButton = jQuery('#btnSubmit'),
                 submit = true,
                 accountNumber = jQuery('#inputBankAcctNum');
-
-            submitButton.prop('disabled', true).addClass('disabled').find('span').toggle();
 
             paymentForm.find('.form-group').removeClass('has-error');
             paymentForm.find('.field-error-msg').hide();
@@ -36,9 +35,8 @@
                 }
             }
             if (!submit) {
-                submitButton.prop('disabled', false)
-                    .removeClass('disabled')
-                    .find('span').toggle();
+                submitButton.prop('disabled', false).removeClass('disabled')
+                    .find('span').toggleClass('hidden');
                 e.preventDefault();
             }
         }
@@ -67,8 +65,8 @@
             paymentForm.find('#inputBankAcctNum').payment('restrictNumeric');
         });
     </script>
-    <script src="{$BASE_PATH_JS}/jquery.payment.js"></script>
-    <script src="{$BASE_PATH_JS}/StatesDropdown.js"></script>
+    <script type="text/javascript" src="{$BASE_PATH_JS}/jquery.payment.js"></script>
+    <script type="text/javascript" src="{$BASE_PATH_JS}/StatesDropdown.js"></script>
 {else}
     <script>
         jQuery(document).ready(function() {

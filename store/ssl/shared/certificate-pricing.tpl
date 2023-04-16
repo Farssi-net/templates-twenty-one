@@ -1,7 +1,7 @@
 <div class="content-block certificate-options {$type}">
     <div class="container">
 
-        <h3 class="float-left">{lang key='store.ssl.shared.pricing'}</h3>
+        <h3 class="pull-left">{lang key='store.ssl.shared.pricing'}</h3>
 
         {include file="$template/store/ssl/shared/currency-chooser.tpl"}
 
@@ -10,20 +10,10 @@
         <br>
 
         <div class="row">
-            {if is_array($certificates.$type)}
-            <div class="{if count($certificates.$type) == 1}col-lg-6 offset-lg-3 col-md-10 offset-md-1{elseif count($certificates.$type) == 2}col-md-10 offset-md-1{else}col-sm-12{/if}">
+            <div class="{if count($certificates.$type) == 1}col-md-6 col-md-offset-3{elseif count($certificates.$type) == 2}col-md-10 col-md-offset-1{else}col-sm-12{/if}">
                 <div class="row row-pricing-table">
-                    <div class="col-md-{if count($certificates.$type) == 1}6{elseif count($certificates.$type) == 2}4{else}3{/if} sidebar d-none d-md-block">
-                        {capture name="heading_spacer" assign="headingSpacer"}
-                            <div class="header"></div>
-                        {/capture}
-                        {if $hasFeatured.$type}
-                            <div class="popular-plan-wrapper">
-                                {$headingSpacer}
-                            </div>
-                        {else}
-                            {$headingSpacer}
-                        {/if}
+                    <div class="col-sm-{if count($certificates.$type) == 1}6{elseif count($certificates.$type) == 2}4{else}3{/if} sidebar hidden-xs">
+                        <div class="header"></div>
                         <ul>
                             <li>{lang key='store.ssl.shared.encryption256'}</li>
                             <li>{lang key='store.ssl.shared.issuanceTime'}</li>
@@ -32,33 +22,16 @@
                             <li>{lang key='store.ssl.shared.siteSeal'}</li>
                             <li>{lang key='store.ssl.shared.freeReissues'}</li>
                             <li>{lang key='store.ssl.shared.browserSupport'}</li>
-                            <li>{lang key='store.ssl.shared.oneYearPrice'}</li>
-                            <li>{lang key='store.ssl.shared.twoYearPrice'}</li>
-                            <li>{lang key='store.ssl.shared.threeYearPrice'}</li>
+                            <li>{lang key='store.ssl.shared.oneYear'}</li>
+                            <li>{lang key='store.ssl.shared.twoYears'}</li>
                         </ul>
                     </div>
                     {if count($certificates.$type) > 0}
                         {foreach $certificates.$type as $product}
-                            <div class="col-md-{if count($certificates.$type) == 1}6{elseif count($certificates.$type) == 2}4{else}3{/if}">
-                                {capture name="heading_title" assign="headingTitle"}
-                                    <div class="header">
-                                        <h4>{$certificateFeatures.{$product->configoption1}.displayName}</h4>
-                                    </div>
-                                {/capture}
-                                {if $hasFeatured.$type}
-                                    <div class="popular-plan-wrapper">
-                                        {if $product->isFeatured}
-                                            <div class="popular-plan">
-                                                <div class="plan-container">
-                                                    <div class="txt-container">{{lang key='recommended'}|upper}</div>
-                                                </div>
-                                            </div>
-                                        {/if}
-                                        {$headingTitle}
-                                    </div>
-                                {else}
-                                    {$headingTitle}
-                                {/if}
+                            <div class="col-sm-{if count($certificates.$type) == 1}6{elseif count($certificates.$type) == 2}4{else}3{/if}">
+                                <div class="header">
+                                    <h4>{$product->name}</h4>
+                                </div>
                                 <ul>
                                     <li><i class="fas fa-check"></i></li>
                                     <li>{$certificateFeatures.{$product->configoption1}.issuance}</li>
@@ -72,27 +45,20 @@
                                     {else}
                                         <li class="price 1yr na">-</li>
                                     {/if}
-
                                     {if $product->pricing()->biennial()}
                                         <li class="price 2yr">{$product->pricing()->biennial()->yearlyPrice()}</li>
                                     {else}
                                         <li class="price 2yr na">-</li>
                                     {/if}
-
-                                    {if $product->pricing()->triennial()}
-                                        <li class="price 3yr">{$product->pricing()->triennial()->yearlyPrice()}</li>
-                                    {else}
-                                        <li class="price 3yr na">-</li>
-                                    {/if}
                                 </ul>
-                                <form method="post" action="{routePath('cart-order')}">
+                                <form method="post" action="{routePath('store-order')}">
                                     <input type="hidden" name="pid" value="{$product->id}">
-                                    <button type="submit" class="btn btn-block">{lang key='store.ssl.landingPage.buyNow'}</button>
+                                    <button type="submit" class="btn btn-block">Buy Now</button>
                                 </form>
                             </div>
                         {/foreach}
                     {else}
-                        <div class="col-9">
+                        <div class="col-xs-9">
                             <div class="lead preview-text">
                                 {lang key='store.ssl.shared.noProducts'}
                             </div>
@@ -101,15 +67,14 @@
                 </div>
                 <br>
                 <div class="row">
-                    <div class="{if count($certificates.$type) == 1}col-sm-12{elseif count($certificates.$type) == 2}col-md-8 offset-md-4{else}col-md-9 offset-md-3{/if} text-center">
-                        <a href="{routePath('store-product-group', $routePathSlug)}#helpmechoose" class="help-me-choose">
+                    <div class="{if count($certificates.$type) == 1}col-sm-6 col-sm-offset-6{elseif count($certificates.$type) == 2}col-sm-8 col-sm-offset-4{else}col-sm-9 col-sm-offset-3{/if} text-center">
+                        <a href="{routePath('store-ssl-certificates-index')}#helpmechoose" class="help-me-choose">
                             <i class="fas fa-question-circle"></i>
                             {lang key='store.ssl.shared.helpMeChoose'}
                         </a>
                     </div>
                 </div>
             </div>
-            {/if}
         </div>
     </div>
 </div>

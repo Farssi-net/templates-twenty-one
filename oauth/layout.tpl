@@ -7,7 +7,6 @@
     <title>{$requestedAction} - {$companyname}</title>
 
     <link href="{assetPath file='all.min.css'}" rel="stylesheet">
-    <link href="{assetPath file='theme.min.css'}?v={$versionHash}" rel="stylesheet">
     {assetExists file="custom.css"}
     <link href="{$__assetPath__}" rel="stylesheet">
     {/assetExists}
@@ -23,9 +22,9 @@
   <body>
 
     <section id="header">
-        <div class="container clearfix">
+        <div class="container">
             <img src="{$logo}" />
-            <div class="float-right text-right">
+            <div class="pull-right text-right">
                 {if $loggedin}
                     <form method="post" action="{$issuerurl}oauth/authorize.php" id="frmLogout">
                         <input type="hidden" name="logout" value="1"/>

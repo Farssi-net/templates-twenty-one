@@ -20,7 +20,7 @@
     </table>
 {elseif $linkableProviders}
 
-    <div id="providerLinkingMessages" class="w-hidden">
+    <div id="providerLinkingMessages" class="hidden">
         <p class="providerLinkingMsg-preLink-init_failed">
             <span class="provider-name"></span> {lang key='remoteAuthn.unavailable'}
         </p>

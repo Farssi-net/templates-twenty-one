@@ -1,57 +1,50 @@
 <div class="upgrade">
-   <div class="card">
-       <div class="card-body">
-           {if !$serviceToBeUpgraded && $errorMessage}
-           <div class="alert alert-warning">
-               {$errorMessage}
-           </div>
-           {else}
-           <h4>{lang key="upgradeService.serviceBeingUpgraded"}</h4>
+    {if !$serviceToBeUpgraded && $errorMessage}
+        <div class="alert alert-warning">
+            {$errorMessage}
+        </div>
+    {else}
+        <h3>{lang key="upgradeService.serviceBeingUpgraded"}</h3>
 
-           <div class="product-to-be-upgraded">
-               <div class="row">
-                   <div class="col-sm-9">
-                       <h5>
-                           {if $serviceToBeUpgraded->isService()}
-                               {$serviceToBeUpgraded->product->productGroup->name} - {$serviceToBeUpgraded->product->name}
-                           {else}
-                               {$serviceToBeUpgraded->productAddon->name}
-                           {/if}
-                           <br>
-                           <small>
-                               {if $serviceToBeUpgraded->domain}
-                                   {$serviceToBeUpgraded->domain}
-                               {elseif $serviceToBeUpgraded->isAddon() && $serviceToBeUpgraded->service->domain}
-                                   {$serviceToBeUpgraded->service->domain}
-                               {else}
-                                   {lang key="noDomain"}
-                               {/if}
-                           </small>
-                       </h5>
-                   </div>
-                   <div class="col-sm-3 text-right">
-                       <a href="{$WEB_ROOT}/clientarea.php?action=productdetails&id={if $serviceToBeUpgraded->isService()}{$serviceToBeUpgraded->id}{elseif $serviceToBeUpgraded->isAddon()}{$serviceToBeUpgraded->service->id}{/if}" class="btn btn-default">
-                           {lang key="manage"}
-                       </a>
-                   </div>
-               </div>
-           </div>
-
-       </div>
-   </div>
-    <div class="card">
-        <div class="card-body">
-            {if $errorMessage}
-                <div class="alert alert-warning">
-                    {$errorMessage}
+        <div class="product-to-be-upgraded">
+            <div class="row">
+                <div class="col-sm-9">
+                    <h4>
+                        {if $serviceToBeUpgraded->isService()}
+                            {$serviceToBeUpgraded->product->productGroup->name} - {$serviceToBeUpgraded->product->name}
+                        {else}
+                            {$serviceToBeUpgraded->productAddon->name}
+                        {/if}
+                    </h4>
+                    <h5>
+                        {if $serviceToBeUpgraded->domain}
+                            {$serviceToBeUpgraded->domain}
+                        {elseif $serviceToBeUpgraded->isAddon() && $serviceToBeUpgraded->service->domain}
+                            {$serviceToBeUpgraded->service->domain}
+                        {else}
+                            {lang key="noDomain"}
+                        {/if}
+                    </h5>
                 </div>
-            {/if}
+                <div class="col-sm-3 text-right">
+                    <a href="{$WEB_ROOT}/clientarea.php?action=productdetails&id={if $serviceToBeUpgraded->isService()}{$serviceToBeUpgraded->id}{elseif $serviceToBeUpgraded->isAddon()}{$serviceToBeUpgraded->service->id}{/if}" class="btn btn-default">
+                        {lang key="manage"}
+                    </a>
+                </div>
+            </div>
+        </div>
 
-            <h4>{lang key="upgradeService.chooseNew"}</h4>
+        {if $errorMessage}
+            <div class="alert alert-warning">
+                {$errorMessage}
+            </div>
+        {/if}
 
-            <div class="products row">
-                {foreach $upgradeProducts as $key => $product}
-                <div class="column col-sm-12 col-md-6 col-lg-{if count($upgradeProducts) >= 3}4{else}6{/if}">
+        <h3>{lang key="upgradeService.chooseNew"}</h3>
+
+        <div class="products row">
+            {foreach $upgradeProducts as $key => $product}
+                <div class="column col-sm-{if count($upgradeProducts) >= 4}3{elseif count($upgradeProducts) == 3}4{else}6{/if}">
                     <div class="product">
                         <div class="header">
                             <h4>
@@ -88,12 +81,14 @@
                                 <input type="hidden" name="serviceid" value="{$serviceToBeUpgraded->id}">
                                 <input type="hidden" name="productid" value="{$product->id}">
                                 {if $allowMultipleQuantities}
-                                    <div class="text-right pb-1">
-                                        {lang key='orderForm.qty'}
-                                        <input type="number" name="qty" min="{$minimumQuantity}" value="{$currentQuantity}" class="form-control input-inline input-inline-100">
+                                    <div class="text-right margin-bottom-5">
+                                        <label class="checkbox-inline">
+                                            {lang key='orderForm.qty'}
+                                            <input type="number" name="qty" min="{$minimumQuantity}" value="{$currentQuantity}" class="form-control input-inline input-inline-100">
+                                        </label>
                                     </div>
                                 {/if}
-                                <select name="billingcycle" class="form-control custom-select">
+                                <select name="billingcycle" class="form-control">
                                     {foreach $product->pricing()->allAvailableCycles() as $cycle}
                                         {if is_null($permittedBillingCycles) || in_array($cycle->cycle(), $permittedBillingCycles)}
                                             <option value="{$cycle->cycle()}">
@@ -117,9 +112,11 @@
                         </div>
                     </div>
                 </div>
-                {/foreach}
-            </div>
-            {/if}
+                {if count($upgradeProducts) >= 4 && (($key + 1) % 4 == 0)}
+                    </div>
+                    <div class="products row">
+                {/if}
+            {/foreach}
         </div>
-    </div>
+    {/if}
 </div>

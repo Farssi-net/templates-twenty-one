@@ -3,7 +3,8 @@
         var stateNotRequired = true,
             ccForm = '';
 
-        function validateCreditCardInput(e) {
+        function validateCreditCardInput(e)
+        {
             var newOrExisting = jQuery('input[name="ccinfo"]:checked').val(),
                 submitButton = jQuery('#btnSubmit'),
                 cardType = null,
@@ -15,10 +16,7 @@
 
             if (newOrExisting === 'new') {
                 cardType = jQuery.payment.cardType(ccForm.find('#inputCardNumber').val());
-                if (
-                    !jQuery.payment.validateCardNumber(ccForm.find('#inputCardNumber').val())
-                    || cardNumber.hasClass('unsupported')
-                ) {
+                if (!jQuery.payment.validateCardNumber(ccForm.find('#inputCardNumber').val()) || cardNumber.hasClass('unsupported')) {
                     var error = cardNumber.data('message-invalid');
                     if (cardNumber.hasClass('unsupported')) {
                         error = cardNumber.data('message-unsupported');
@@ -40,9 +38,8 @@
                 submit = false;
             }
             if (!submit) {
-                submitButton.prop('disabled', false)
-                    .removeClass('disabled')
-                    .find('span').toggle();
+                submitButton.prop('disabled', false).removeClass('disabled')
+                    .find('span').toggleClass('hidden');
                 e.preventDefault();
             }
         }
@@ -73,19 +70,19 @@
             ccForm.find('#ccissuenum').payment('restrictNumeric');
         });
     </script>
-    <script src="{$BASE_PATH_JS}/jquery.payment.js"></script>
-    <script src="{$BASE_PATH_JS}/StatesDropdown.js"></script>
+    <script type="text/javascript" src="{$BASE_PATH_JS}/jquery.payment.js"></script>
+    <script type="text/javascript" src="{$BASE_PATH_JS}/StatesDropdown.js"></script>
 {else}
     <script>
         jQuery(document).ready(function() {
             jQuery('.paymethod-info input[name="ccinfo"]').on('ifChecked', function() {
                 if (jQuery(this).val() === 'new') {
-                    var route = '{$newCardRoute}',
-                        delimiter = '?';
-                    if (route.indexOf('?') !== -1) {
-                        delimiter = '&';
+                    if (window.location.toString().match(/\?/)) {
+                        window.location = window.location + '&ccinfo=new';
+                    } else {
+                        window.location = window.location + '?ccinfo=new';
                     }
-                    window.location = route + delimiter + 'ccinfo=new';
+
                     return true;
                 }
             });

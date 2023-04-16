@@ -1,24 +1,28 @@
-<!-- Styling -->
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
-<link href="{assetPath file='all.min.css'}?v={$versionHash}" rel="stylesheet">
-<link href="{assetPath file='theme.min.css'}?v={$versionHash}" rel="stylesheet">
-<link href="{$WEB_ROOT}/assets/css/fontawesome-all.min.css" rel="stylesheet">
-{assetExists file="custom.css"}
-<link href="{$__assetPath__}" rel="stylesheet">
-{/assetExists}
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600|Raleway:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700&display=swap" rel="stylesheet"> 
+    <link href="{$WEB_ROOT}/templates/{$template}/css/all.min.css?v={$versionHash}" rel="stylesheet">
+    <link href="{$WEB_ROOT}/templates/{$template}/css/custom.css?v={$versionHash}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.owlcarousel/1.31/owl.carousel.css?v={$versionHash}">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
-<script>
+    <script type="text/javascript">
     var csrfToken = '{$token}',
-        markdownGuide = '{lang|addslashes key="markdown.title"}',
+        markdownGuide = '{lang key="markdown.title"}',
         locale = '{if !empty($mdeLocale)}{$mdeLocale}{else}en{/if}',
-        saved = '{lang|addslashes key="markdown.saved"}',
-        saving = '{lang|addslashes key="markdown.saving"}',
+        saved = '{lang key="markdown.saved"}',
+        saving = '{lang key="markdown.saving"}',
         whmcsBaseUrl = "{\WHMCS\Utility\Environment\WebHelper::getBaseUrl()}",
-        requiredText = '{lang|addslashes key="orderForm.required"}',
+        requiredText = '{lang key="orderForm.required"}',
         recaptchaSiteKey = "{if $captcha}{$captcha->recaptcha->getSiteKey()}{/if}";
-</script>
-<script src="{assetPath file='scripts.min.js'}?v={$versionHash}"></script>
+    </script>
+    <script src="{$WEB_ROOT}/templates/{$template}/js/scripts.min.js?v={$versionHash}"></script>
 
-{if $templatefile == "viewticket" && !$loggedin}
-  <meta name="robots" content="noindex" />
-{/if}
+    {if $templatefile == "viewticket" && !$loggedin}
+        <meta name="robots" content="noindex" />
+    {/if}

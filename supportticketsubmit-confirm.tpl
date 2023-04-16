@@ -1,18 +1,18 @@
-<div class="card">
-    <div class="card-body extra-padding">
+<br />
 
-        <h3 class="card-title">{lang key="createNewSupportRequest"}</h3>
+<div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
 
         <div class="alert alert-success text-center">
             <strong>
-                {lang key='supportticketsticketcreated'}
+                {$LANG.supportticketsticketcreated}
                 <a id="ticket-number" href="viewticket.php?tid={$tid}&amp;c={$c}" class="alert-link">#{$tid}</a>
             </strong>
         </div>
 
         <div class="row">
-            <div class="col-10 offset-1">
-                <p>{lang key='supportticketsticketcreateddesc'}</p>
+            <div class="col-xs-10 col-xs-offset-1">
+                <p>{$LANG.supportticketsticketcreateddesc}</p>
             </div>
         </div>
 
@@ -20,10 +20,14 @@
 
         <p class="text-center">
             <a href="viewticket.php?tid={$tid}&amp;c={$c}" class="btn btn-default">
-                {lang key='continue'}
+                {$LANG.continue}
                 <i class="fas fa-arrow-circle-right"></i>
             </a>
         </p>
+
+        <br />
+        <br />
+        <br />
 
     </div>
 </div>

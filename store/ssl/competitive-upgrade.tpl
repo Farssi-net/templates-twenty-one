@@ -1,4 +1,4 @@
-<link href="{assetPath file='store.css'}" rel="stylesheet">
+<link href="{$WEB_ROOT}/templates/{$template}/store/css/style.css" rel="stylesheet">
 
 <div class="landing-page ssl">
 
@@ -14,11 +14,11 @@
     <div class="content-block">
         <div class="container text-center">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 offset-md-1">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <h4>{lang key='store.ssl.competitiveUpgrades.buyWithTime'} <strong>{lang key='store.ssl.competitiveUpgrades.foc'}</strong>.</h4>
 
                     <div class="alert alert-warning text-left">
-                        <strong><i class="fas fa-star fa-5x float-left"></i> {lang key='store.ssl.competitiveUpgrades.exampleScenario'}</strong><br>
+                        <strong><i class="fas fa-star fa-5x pull-left"></i> {lang key='store.ssl.competitiveUpgrades.exampleScenario'}</strong><br>
                         {lang key='store.ssl.competitiveUpgrades.example.line1'}
                         {lang key='store.ssl.competitiveUpgrades.example.line2'}
                         {lang key='store.ssl.competitiveUpgrades.example.line3'}
@@ -38,7 +38,7 @@
                         <br>
                     {/if}
 
-                    <form method="post" action="{routePath('cart-ssl-certificates-competitiveupgrade-validate')}">
+                    <form method="post" action="{routePath('store-ssl-certificates-competitiveupgrade-validate')}">
 
                         {if $validated}
                             {if $eligible}
@@ -65,7 +65,7 @@
                                         </tr>
                                     {/if}
                                 </table>
-                                <a class="btn btn-primary btn-lg" href="{routePath('store-product-group', $productGroupSlug, 'ev')}">
+                                <a class="btn btn-primary btn-lg" href="{routePath('store-ssl-certificates-ev')}">
                                     {lang key='store.ssl.competitiveUpgrades.continue'}
                                 </a>
                             {else}
@@ -77,15 +77,13 @@
 
                         {if !$validated || !$eligible}
                             <div class="input-group input-group-lg">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">https://</span>
-                                </div>
+                                <span class="input-group-addon">https://</span>
                                 <input type="text" name="url" value="{$url}" class="form-control" placeholder="{lang key='store.ssl.competitiveUpgrades.enterDomain'}">
-                                <div class="input-group-append">
+                                <span class="input-group-btn">
                                     <button type="submit" class="btn btn-primary">
                                         {lang key='store.ssl.competitiveUpgrades.validate'}
                                     </button>
-                                </div>
+                                </span>
                             </div>
                             <p><small>* {lang key='store.ssl.competitiveUpgrades.competitors'}</small></p>
                         {/if}

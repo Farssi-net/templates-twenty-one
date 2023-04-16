@@ -1,6 +1,6 @@
-<link href="{assetPath file='store.css'}" rel="stylesheet">
+<link href="{$WEB_ROOT}/templates/{$template}/store/css/style.css" rel="stylesheet">
 
-<div class="landing-page bg-white sitelock">
+<div class="landing-page sitelock">
 
     <div class="hero">
         <div class="container">
@@ -11,19 +11,22 @@
         </div>
     </div>
 
-    <nav class="navbar navbar-light bg-light navbar-expand-lg p-0">
+    <nav class="navbar navbar-default">
       <div class="container">
-        <span class="navbar-brand"></span>
-        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#nav-landing-page" aria-expanded="false">
-          <span class="sr-only">{lang key="toggleNav"}</span>
-          <span class="navbar-toggler-icon"></span>
-        </button>
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-landing-page" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
         <div class="collapse navbar-collapse" id="nav-landing-page">
           <ul class="nav navbar-nav">
-            <li class="nav-item"><a class="nav-link" href="#" onclick="smoothScroll('#plans');return false">{lang key="store.sitelock.plansAndPricing"}</a></li>
-            <li class="nav-item"><a class="nav-link" href="#" onclick="smoothScroll('#features');return false">{lang key="store.sitelock.featuresLink"}</a></li>
-            <li class="nav-item"><a class="nav-link" href="#" onclick="smoothScroll('#emergency');return false">{lang key="store.sitelock.websiteHacked"}</a></li>
-            <li class="nav-item"><a class="nav-link" href="#" onclick="smoothScroll('#faq');return false">{lang key="store.sitelock.faq"}</a></li>
+            <li><a href="#" onclick="smoothScroll('#plans');return false">Plans & Pricing</a></li>
+            <li><a href="#" onclick="smoothScroll('#features');return false">Features</a></li>
+            <li><a href="#" onclick="smoothScroll('#emergency');return false">Website Hacked?</a></li>
+            <li><a href="#" onclick="smoothScroll('#faq');return false">FAQ</a></li>
           </ul>
         </div>
       </div>
@@ -31,18 +34,25 @@
 
     <div class="content-block">
         <div class="container">
-            <h2>{lang key="store.sitelock.contentHeadline"}</h2>
+
+            <h2>Website security &amp; malware protection for your website</h2>
+
             <br>
-            <p>{lang key="store.sitelock.contentBodyParagraph1"}</p>
-            <p>{lang key="store.sitelock.contentBodyParagraph2"}</p>
-            <p>{lang key="store.sitelock.contentBodyParagraph3"}</p>
+
+            <p>SiteLock&trade;, the global leader in website security, protects your website to give you peace of mind.</p>
+
+            <p>SiteLock's Daily Malware Scanning identifies vulnerabilities and known malicious code and automatically removes it from your website to protect your website and visitors against threats.</p>
+
+            <p>Plus you get the SiteLock Trust Seal which builds customer confidence and is proven to increase sales and conversion rates.</p>
+
         </div>
     </div>
 
     <div class="content-block plans" id="plans">
         <div class="container">
+
             {if !$loggedin && $currencies}
-                <form method="post" action="" class="float-right">
+                <form method="post" action="" class="pull-right">
                     <select name="currency" class="form-control currency-selector" onchange="submit()">
                         <option>{lang key="changeCurrency"} ({$activeCurrency.prefix} {$activeCurrency.code})</option>
                         {foreach $currencies as $currency}
@@ -51,18 +61,19 @@
                     </select>
                 </form>
             {/if}
-            <h2>{lang key="store.sitelock.comparePlans"}</h2>
-            <h3>{lang key="store.sitelock.comparePlansSubtitle"}</h3>
+            <h2>Compare SiteLock Plans</h2>
+            <h3>Professional security features for your website</h3>
+
             <div class="row plan-comparison">
                 {foreach $plans as $plan}
-                    <div class="col-md-6 col-lg-{if count($plans) == 4}3{elseif count($plans) == 3}4{elseif count($plans) == 2}4 {if $plan@first}offset-lg-2{/if}{else}4 offset-lg-4{/if} {if count($plans) == 1}offset-md-3{/if}">
+                    <div class="col-lg-{if count($plans) == 4}3{elseif count($plans) == 3}4{elseif count($plans) == 2}6{else}12{/if} col-md-{if count($plans) == 3}4{/if} col-sm-6">
                         <div class="plan">
                             <div class="header">
                                 <h4>
                                     {$plan->name}
-                                    <span class="float-right">
+                                    <span class="pull-right">
                                         {if $plan->isFree()}
-                                            {lang key="orderpaymenttermfree"}
+                                            FREE
                                         {elseif $plan->pricing()->annually()}
                                             {$plan->pricing()->annually()->toPrefixedString()}
                                         {elseif $plan->pricing()->first()}
@@ -78,6 +89,7 @@
                                 {foreach $plan->features as $label => $value}
                                     <li>
                                         <span>{$label}</span>
+
                                         {if is_bool($value)}
                                             <i class="fas fa-{if $value}check{else}times{/if}"></i>
                                         {else}
@@ -87,7 +99,7 @@
                                 {/foreach}
                             </ul>
                             <div class="footer">
-                                <form method="post" action="{routePath('cart-order')}">
+                                <form method="post" action="{routePath('store-order')}">
                                     <input type="hidden" name="pid" value="{$plan->id}">
                                     <select name="billingcycle" class="form-control">
                                         {foreach $plan->pricing()->allAvailableCycles() as $cycle}
@@ -103,7 +115,7 @@
                                                 {$cycle->toFullString()}</option>
                                         {/foreach}
                                     </select>
-                                    <button type="submit" class="btn btn-block">{lang key="store.sitelock.buyNow"}</button>
+                                    <button type="submit" class="btn btn-block">Buy Now</button>
                                 </form>
                             </div>
                         </div>
@@ -116,96 +128,99 @@
 
     <div class="content-block features" id="features">
         <div class="container">
-            <h2>{lang key="store.sitelock.featuresTitle"}</h2>
-            <h3>{lang key="store.sitelock.featuresHeadline"}</h3>
+
+            <h2>SiteLock Features</h2>
+            <h3>Provides a range of features designed to protect both your website and your business’ reputation:</h3>
+
             <br>
+
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                     <div class="feature-wrapper">
                         <i class="fas fa-search fa-fw"></i>
                         <div class="content">
-                            <h4>{lang key="store.sitelock.featuresMalwareTitle"}</h4>
-                            <p>{lang key="store.sitelock.featuresMalwareContent"}</p>
+                            <h4>Malware Scan</h4>
+                            <p>Proactively monitors for and alerts you about any malware that is detected on your website.</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-md-6">
                     <div class="feature-wrapper">
                         <i class="fas fa-wrench fa-fw"></i>
                         <div class="content">
-                            <h4>{lang key="store.sitelock.featuresMalwareRemovalTitle"}</h4>
-                            <p>{lang key="store.sitelock.featuresMalwareRemovalContent"}</p>
+                            <h4>Automatic malware removal</h4>
+                            <p>If a scan finds anything, SiteLock will safely remove any known malware automatically.</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                     <div class="feature-wrapper">
                         <i class="fas fa-code fa-fw"></i>
                         <div class="content">
-                            <h4>{lang key="store.sitelock.featuresVulnerabilityTitle"}</h4>
-                            <p>{lang key="store.sitelock.featuresVulnerabilityContent"}</p>
+                            <h4>Vulnerability Scan</h4>
+                            <p>Automatically checks your applications to ensure they're up-to-date and secured against known vulnerabilities.</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-md-6">
                     <div class="feature-wrapper">
                         <i class="far fa-file-code fa-fw"></i>
                         <div class="content">
-                            <h4>{lang key="store.sitelock.featuresOWASPTitle"}</h4>
-                            <p>{lang key="store.sitelock.featuresOWASPContent"}</p>
+                            <h4>OWASP Protection</h4>
+                            <p>Get protection against the top 10 web app security flaws as recognised by OWASP, the Open Web Application Security Project.</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                     <div class="feature-wrapper">
                         <i class="fas fa-trophy fa-fw"></i>
                         <div class="content">
-                            <h4>{lang key="store.sitelock.featuresTrustSealTitle"}</h4>
-                            <p>{lang key="store.sitelock.featuresTrustSealContent"}</p>
+                            <h4>SiteLock&trade; Trust Seal</h4>
+                            <p>Give your visitors added confidence by showing your website is protected by SiteLock.</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-md-6">
                     <div class="feature-wrapper">
                         <i class="fas fa-shield-alt fa-fw"></i>
                         <div class="content">
-                            <h4>{lang key="store.sitelock.featuresFirewallTitle"}</h4>
-                            <p>{lang key="store.sitelock.featuresFirewallContent"}</p>
+                            <h4>Firewall</h4>
+                            <p>The TrueShield&trade; Web Application Firewall protects your website against hackers and attacks.</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                     <div class="feature-wrapper">
                         <i class="fas fa-lock fa-fw"></i>
                         <div class="content">
-                            <h4>{lang key="store.sitelock.featuresReputationTitle"}</h4>
-                            <p>{lang key="store.sitelock.featuresReputationContent"}</p>
+                            <h4>Protect your reputation</h4>
+                            <p>Daily scans help detect malware early before search engines have a chance to find it and blacklist your site.</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-md-6">
                     <div class="feature-wrapper">
                         <i class="fas fa-star fa-fw"></i>
                         <div class="content">
-                            <h4>{lang key="store.sitelock.featuresSetupTitle"}</h4>
-                            <p>{lang key="store.sitelock.featuresSetupContent"}</p>
+                            <h4>Fast automated setup</h4>
+                            <p>Instant and fully automated setup gives you protection immediately without anything to install.</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                     <div class="feature-wrapper">
                         <i class="fas fa-globe fa-fw"></i>
                         <div class="content">
-                            <h4>{lang key="store.sitelock.featuresCDNTitle"}</h4>
-                            <p>{lang key="store.sitelock.featuresCDNContent"}</p>
+                            <h4>Content Delivery Network (CDN)</h4>
+                            <p>Speed up your website by distributing it globally and serving it to your visitors from the closest location for faster page load speeds wherever they are.</p>
                         </div>
                     </div>
                 </div>
@@ -216,168 +231,171 @@
     {if !is_null($emergencyPlan)}
     <div class="content-block emergency" id="emergency">
         <div class="container">
-            <h2 class="text-danger">{lang key="store.sitelock.emergencyPlanTitle"}</h2>
-            <h3>{lang key="store.sitelock.emergencyPlanHeadline"}</h3>
-            <p>{lang key="store.sitelock.emergencyPlanBody"}</p>
+
+            <h2 class="text-danger">Website Hacked?</h2>
+            <h3>Fix it now with SiteLock Emergency Response</h3>
+
+            <p>If your website has been attacked and compromised get immediate emergency assistance to quickly recover your site. Here's how SiteLock Emergency Response helps:</p>
+
             <br>
+
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                     <div class="feature-wrapper">
                         <i class="far fa-clock fa-fw"></i>
                         <div class="content">
-                            <h4>{lang key="store.sitelock.emergencyPlanResponseTitle"}</h4>
-                            <p>{lang key="store.sitelock.emergencyPlanResponseContent"}</p>
+                            <h4>Immediate response</h4>
+                            <p>Get our fastest response time with analysis and work to recover your site started within 30 minutes.</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-md-6">
                     <div class="feature-wrapper">
                         <i class="fas fa-times fa-fw"></i>
                         <div class="content">
-                            <h4>{lang key="store.sitelock.emergencyPlanMalwareTitle"}</h4>
-                            <p>{lang key="store.sitelock.emergencyPlanMalwareContent"}</p>
+                            <h4>Complete malware removal</h4>
+                            <p>If our automatic technology is unable to remove the malicious content we'll perform manual cleaning.</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                     <div class="feature-wrapper">
                         <i class="fas fa-exclamation-circle fa-fw"></i>
                         <div class="content">
-                            <h4>{lang key="store.sitelock.emergencyPlanPriorityTitle"}</h4>
-                            <p>{lang key="store.sitelock.emergencyPlanPriorityContent"}</p>
+                            <h4>Priority treatment</h4>
+                            <p>With the emergency package you get fast tracked straight to the top of the queue.</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-md-6">
                     <div class="feature-wrapper">
                         <i class="far fa-calendar-check fa-fw"></i>
                         <div class="content">
-                            <h4>{lang key="store.sitelock.emergencyPlanAftercareTitle"}</h4>
-                            <p>{lang key="store.sitelock.emergencyPlanAftercareContent"}</p>
+                            <h4>7 day aftercare</h4>
+                            <p>We'll continue to monitor your site for 7 days to ensure that your site remains malware-free post recovery.</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-md-6">
                     <div class="feature-wrapper">
                         <i class="far fa-envelope fa-fw"></i>
                         <div class="content">
-                            <h4>{lang key="store.sitelock.emergencyPlanUpdatesTitle"}</h4>
-                            <p>{lang key="store.sitelock.emergencyPlanUpdatesContent"}</p>
+                            <h4>Real-time updates</h4>
+                            <p>Track progress with our real-time updates throughout the process of cleaning and recovering your site.</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-md-6">
                     <div class="feature-wrapper">
                         <i class="fas fa-star fa-fw"></i>
                         <div class="content">
-                            <h4>{lang key="store.sitelock.emergencyPlanPaymentTitle"}</h4>
-                            <p>{lang key="store.sitelock.emergencyPlanPaymentContent"}</p>
+                            <h4>One-off payment</h4>
+                            <p>The emergency service is available for a single one-off fee, there's no recurring fees or subscription.</p>
                         </div>
                     </div>
                 </div>
             </div>
+
             <br>
+
             <div class="clearfix">
-                <div class="price float-left">
-                    {lang key="store.sitelock.emergencyPlanOnlyCost" price="{if $emergencyPlan->pricing()->best()}{$emergencyPlan->pricing()->best()->toFullString()}{else}-{/if}" }
+                <div class="price pull-left">
+                    Only {if $emergencyPlan->pricing()->best()}{$emergencyPlan->pricing()->best()->toFullString()}{else}-{/if} for 7 days of protection
                 </div>
-                <form method="post" action="{routePath('cart-order')}">
+                <form method="post" action="{routePath('store-order')}">
                     <input type="hidden" name="pid" value="{$emergencyPlan->id}">
-                    <button type="submit" class="btn btn-default mt-3 mt-lg-0 float-lg-right">
-                        {lang key="store.sitelock.buyNow"}
+                    <button type="submit" class="btn btn-default pull-right">
+                        Buy Now
                     </button>
                 </form>
             </div>
+
         </div>
     </div>
     {/if}
 
     <div class="content-block faq" id="faq">
-        <div class="container accordion" id="faqAccordion">
-            <h2 class="mb-4">{lang key="store.sitelock.faqTitle"}</h2>
-            <div class="card bg-default m-0">
-                <div class="card-header" id="faqOne" role="button" data-toggle="collapse" data-target="#collapseFaqOne" aria-expanded="true" aria-controls="collapseFaqOne">
-                    <h4 class="m-0">
-                        {lang key="store.sitelock.faqOneTitle"}
-                    </h4>
+        <div class="container">
+
+            <h2>Frequently Asked Questions</h2>
+
+            <div aria-multiselectable="true" class="panel-group" id="accordion" role="tablist">
+                <div class="panel panel-default">
+                    <div class="panel-heading" id="faqOne" role="tab">
+                        <h4 class="panel-title"><a aria-controls="collapseOne" aria-expanded="true" data-parent="#accordion" data-toggle="collapse" href="#collapseOne" role="button">What is SiteLock?</a></h4>
+                    </div>
+                    <div aria-labelledby="faqOne" class="panel-collapse collapse in" id="collapseOne" role="tabpanel">
+                        <div class="panel-body">
+                            SiteLock provides simple, fast and affordable website security to websites of all sizes. Founded in 2008, the company protects over 12 million websites worldwide. The SiteLock cloud-based suite of products offers automated website vulnerability detection and malware removal, DDoS protection, website acceleration, website risk assessments, and PCI compliance.
+                            <br><br>
+                            To learn more about SiteLock, <a href="https://vimeo.com/164301190" target="_blank">watch the 'How SiteLock Works' video by clicking here</a>.
+                        </div>
+                    </div>
                 </div>
-                <div id="collapseFaqOne" class="collapse" aria-labelledby="faqOne" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        {lang key="store.sitelock.faqOneBody"}<br/><br/>
-                        {lang key="store.sitelock.faqOneBodyLearnMore" learnMoreLink={$learnMoreLink}}
+                <div class="panel panel-default">
+                    <div class="panel-heading" id="faqTwo" role="tab">
+                        <h4 class="panel-title"><a aria-controls="collapseTwo" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapseTwo" role="button">What does SiteLock do?</a></h4>
+                    </div>
+                    <div aria-labelledby="faqTwo" class="panel-collapse collapse" id="collapseTwo" role="tabpanel">
+                        <div class="panel-body">
+                            SiteLock provides comprehensive website security. It performs website daily scans to identify vulnerabilities or malware. When vulnerabilities or malware are found, you will be alerted immediately. Based on your SiteLock scanner, it will automatically remove any malware on your website.  For content management system (CMS) websites, SiteLock can automatically patch found vulnerabilities.
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" id="faqThree" role="tab">
+                        <h4 class="panel-title"><a aria-controls="collapseThree" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapseThree" role="button">What types of issues does SiteLock scan for?</a></h4>
+                    </div>
+                    <div aria-labelledby="faqThree" class="panel-collapse collapse" id="collapseThree" role="tabpanel">
+                        <div class="panel-body">
+                            SiteLock has the technology to perform a comprehensive website scan that encompasses:
+                            <br>
+                            <ul>
+                                <li><Strong>File-based Malware Scanning and Removal:</Strong> SiteLock performs daily scans of a website's files for malware. If malware is found, the website owner is alerted immediately. SiteLock also offers comprehensive scans to automatically remove the malware.</li>
+                                <li><strong>Vulnerability Scanning:</strong> SiteLock performs scans of website applications for common vulnerabilities that could lead to a compromise.</li>
+                                <li><strong>Application Security and Vulnerability Patching:</strong> SiteLock has the technology to automatically patch vulnerabilities in content management systems (CMS).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" id="faqFour" role="tab">
+                        <h4 class="panel-title"><a aria-controls="collapseFour" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapseFour" role="button">What are vulnerabilities and malware?</a></h4>
+                    </div>
+                    <div aria-labelledby="faqFour" class="panel-collapse collapse" id="collapseFour" role="tabpanel">
+                        <div class="panel-body">
+                            A <strong>website vulnerability</strong> is a weakness or misconfiguration in a website or web application code that allows an attacker to gain some level of control of the site, and possibly the hosting server. Most vulnerabilities are exploited through automated means, such as vulnerability scanners and botnets.
+                            <br><br>
+                            <strong>Malware</strong>, short for malicious software, is used to gather sensitive data, gain unauthorized access to websites and even hijack computers.
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" id="faqFive" role="tab">
+                        <h4 class="panel-title"><a aria-controls="collapseFive" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapseFive" role="button">Will SiteLock impact website performance?</a></h4>
+                    </div>
+                    <div aria-labelledby="faqFive" class="panel-collapse collapse" id="collapseFive" role="tabpanel">
+                        <div class="panel-body">
+                            No. During a website scan, SiteLock downloads the relevant files to a secure server and performs scans there. There is no impact to the website content, code, bandwidth or server resources on the website.
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" id="faqSix" role="tab">
+                        <h4 class="panel-title"><a aria-controls="collapseSix" aria-expanded="false" class="collapsed" data-parent="#accordion" data-toggle="collapse" href="#collapseSix" role="button">What is the SiteLock Trust Seal?</a></h4>
+                    </div>
+                    <div aria-labelledby="faqSix" class="panel-collapse collapse" id="collapseSix" role="tabpanel">
+                        <div class="panel-body">
+                            The SiteLock Trust Seal is a widely-recognized security badge you can display on your website. It is a clear indication that your website is secure and malware-free. To add the seal to your website, simply include the code snippet that SiteLock provides in the footer area of your website.
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="card bg-default m-0">
-                <div class="card-header" id="faqTwo" role="button" data-toggle="collapse" data-target="#collapseFaqTwo" aria-expanded="true" aria-controls="collapseFaqTwo">
-                    <h4 class="m-0">
-                        {lang key="store.sitelock.faqTwoTitle"}
-                    </h4>
-                </div>
-                <div id="collapseFaqTwo" class="collapse" aria-labelledby="faqTwo" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        {lang key="store.sitelock.faqTwoBody"}
-                    </div>
-                </div>
-            </div>
-            <div class="card bg-default m-0">
-                <div class="card-header" id="faqThree" role="button" data-toggle="collapse" data-target="#collapseFaqThree" aria-expanded="true" aria-controls="collapseFaqThree">
-                    <h4 class="m-0">
-                        {lang key="store.sitelock.faqThreeTitle"}
-                    </h4>
-                </div>
-                <div id="collapseFaqThree" class="collapse" aria-labelledby="faqThree" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        {lang key="store.sitelock.faqThreeBody"}<br/>
-                        <ul>
-                            <li>{lang key="store.sitelock.faqThreeBodyList1"}</li>
-                            <li>{lang key="store.sitelock.faqThreeBodyList2"}</li>
-                            <li>{lang key="store.sitelock.faqThreeBodyList3"}</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="card bg-default m-0">
-                <div class="card-header" id="faqFour" role="button" data-toggle="collapse" data-target="#collapseFaqFour" aria-expanded="true" aria-controls="collapseFaqFour">
-                    <h4 class="m-0">
-                        {lang key="store.sitelock.faqFourTitle"}
-                    </h4>
-                </div>
-                <div id="collapseFaqFour" class="collapse" aria-labelledby="faqFour" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        {lang key="store.sitelock.faqFourBodyParagraph1" vulnerabilityStrong="<strong>{lang key="store.sitelock.websiteVulnerability"}</strong>"}<br/><br/>
-                        {lang key="store.sitelock.faqFourBodyParagraph2" malwareStrong="<strong>{lang key="store.sitelock.malware"}</strong>"}<br/><br/>
-                    </div>
-                </div>
-            </div>
-            <div class="card bg-default m-0">
-                <div class="card-header" id="faqFive" role="button" data-toggle="collapse" data-target="#collapseFaqFive" aria-expanded="true" aria-controls="collapseFaqFive">
-                    <h4 class="m-0">
-                        {lang key="store.sitelock.faqFiveTitle"}
-                    </h4>
-                </div>
-                <div id="collapseFaqFive" class="collapse" aria-labelledby="faqFive" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        {lang key="store.sitelock.faqFiveBody"}
-                    </div>
-                </div>
-            </div>
-            <div class="card bg-default m-0">
-                <div class="card-header" id="faqSix" role="button" data-toggle="collapse" data-target="#collapseFaqSix" aria-expanded="true" aria-controls="collapseFaqSix">
-                    <h4  class="m-0">
-                        {lang key="store.sitelock.faqSixTitle"}
-                    </h4>
-                </div>
-                <div id="collapseFaqSix" class="collapse" aria-labelledby="faqSix" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        {lang key="store.sitelock.faqSixBody"}
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 

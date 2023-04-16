@@ -1,11 +1,7 @@
-# WHMCS Twenty-One Theme Configuration File
+# WHMCS Six Theme Configuration File
 
-name: "Twenty-One"
-description: "The Default Theme for WHMCS 2021"
+name: "WHMCS Six Theme"
+description: "The Default Theme for WHMCS Version 6.0"
 author: "WHMCS Limited"
 properties:
   serverSidePagination: false # Defines client side will handle pagination
-provides:
-  bootstrap: 4.5.3
-  jquery: 1.12.4
-  fontawesome: 5.10.1

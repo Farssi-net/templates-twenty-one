@@ -1,35 +1,28 @@
-<nav class="navbar navbar-light bg-light navbar-expand-lg p-0">
+<nav class="navbar navbar-default">
   <div class="container">
-    <span class="navbar-brand"></span>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-ssl" aria-controls="nal-ssl" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-ssl" aria-expanded="false">
+        <span class="sr-only">{lang key='store.toggleNav'}</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
     <div class="collapse navbar-collapse" id="nav-ssl">
-      <ul class="navbar-nav">
-          <li class="nav-item{if empty($current)} active{/if}">
-              <a class="nav-link" href="{routePath('store-product-group', $routePathSlug)}">{lang key='overview'}</a>
-          </li>
-          {if $certTypes.dv > 0 || $inPreview}
-              <li class="nav-item{if $current == 'dv'} active{/if}">
-                  <a class="nav-link" href="{routePath('store-product-group', $routePathSlug, 'dv')}">{lang key='store.ssl.shared.dvSsl'}</a>
-              </li>
-          {/if}
-          {if $certTypes.ov > 0 || $inPreview}
-              <li class="nav-item{if $current == 'ov'} active{/if}">
-                  <a class="nav-link" href="{routePath('store-product-group', $routePathSlug, 'ov')}">{lang key='store.ssl.shared.ovSsl'}</a>
-              </li>
-          {/if}
-          {if $certTypes.ev > 0 || $inPreview}
-              <li class="nav-item{if $current == 'ev'} active{/if}">
-                  <a class="nav-link" href="{routePath('store-product-group', $routePathSlug, 'ev')}">{lang key='store.ssl.shared.evSsl'}</a>
-              </li>
-          {/if}
-          {if $certTypes.wildcard > 0 || $inPreview}
-            <li class="nav-item{if $current == 'wildcard'} active{/if}">
-                <a class="nav-link" href="{routePath('store-product-group', $routePathSlug, 'wildcard')}">{lang key='store.ssl.shared.wildcardSsl'}</a>
-            </li>
-          {/if}
+      <ul class="nav navbar-nav">
+        {if count($certificates.dv) > 0 || $inPreview}
+            <li{if $current == 'dv'} class="active"{/if}><a href="{routePath('store-ssl-certificates-dv')}">{lang key='store.ssl.shared.dvSsl'}</a></li>
+        {/if}
+        {if count($certificates.ov) > 0 || $inPreview}
+            <li{if $current == 'ov'} class="active"{/if}><a href="{routePath('store-ssl-certificates-ov')}">{lang key='store.ssl.shared.ovSsl'}</a></li>
+        {/if}
+        {if count($certificates.ev) > 0 || $inPreview}
+            <li{if $current == 'ev'} class="active"{/if}><a href="{routePath('store-ssl-certificates-ev')}">{lang key='store.ssl.shared.evSsl'}</a></li>
+        {/if}
+        {if count($certificates.wildcard) > 0 || $inPreview}
+            <li{if $current == 'wildcard'} class="active"{/if}><a href="{routePath('store-ssl-certificates-wildcard')}">{lang key='store.ssl.shared.wildcardSsl'}</a></li>
+        {/if}
+        <li{if $current == 'competitiveupgrade'} class="active"{/if}><a href="{routePath('store-ssl-certificates-competitiveupgrade')}">{lang key='store.ssl.shared.switch'}</a></li>
       </ul>
     </div>
   </div>
@@ -38,7 +31,7 @@
 {if $inCompetitiveUpgrade}
     <div class="competitive-upgrade-banner" id="competitiveUpgradeBanner">
         <div class="container">
-            <button class="btn btn-default btn-sm float-right" onclick="$('#competitiveUpgradeBanner').slideUp()">{lang key="dismiss"}</button>
+            <button class="btn btn-default btn-sm pull-right" onclick="$('#competitiveUpgradeBanner').slideUp()">{lang key="dismiss"}</button>
             <h4>{lang key="store.ssl.competitiveUpgrade"}</h4>
             <p>{lang key="store.ssl.competitiveUpgradeBannerMsg" domain=$competitiveUpgradeDomain}</p>
         </div>

@@ -4,9 +4,9 @@
 
 <link type="text/css" rel="stylesheet" href="{$BASE_PATH_CSS}/ion.rangeSlider.css" property="stylesheet" />
 <link type="text/css" rel="stylesheet" href="{$BASE_PATH_CSS}/ion.rangeSlider.skinHTML5.css" property="stylesheet" />
-<link href="{assetPath file='store.css'}" rel="stylesheet">
+<link href="{$WEB_ROOT}/templates/{$template}/store/css/style.css" rel="stylesheet">
 
-<div class="landing-page bg-white codeguard">
+<div class="landing-page codeguard">
 
     <div class="hero">
         <div class="container">
@@ -18,19 +18,22 @@
         </div>
     </div>
 
-    <nav class="navbar navbar-light bg-light navbar-expand-md p-0">
+    <nav class="navbar navbar-default">
         <div class="container">
-            <span class="navbar-brand"></span>
-            <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#nav-landing-page" aria-expanded="false">
-                <span class="sr-only">{lang key="toggleNav"}</span>
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-landing-page" aria-expanded="false">
+                    <span class="sr-only">{lang key="store.toggleNav"}</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
             <div class="collapse navbar-collapse" id="nav-landing-page">
                 <ul class="nav navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="#" onclick="smoothScroll('#overview');return false">{lang key="store.codeGuard.tab.overview"}</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#" onclick="smoothScroll('#pricing');return false">{lang key="store.codeGuard.tab.pricing"}</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#" onclick="smoothScroll('#features');return false">{lang key="store.codeGuard.tab.features"}</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#" onclick="smoothScroll('#faq');return false">{lang key="store.codeGuard.tab.faq"}</a></li>
+                    <li><a href="#" onclick="smoothScroll('#overview');return false">{lang key="store.codeGuard.tab.overview"}</a></li>
+                    <li><a href="#" onclick="smoothScroll('#pricing');return false">{lang key="store.codeGuard.tab.pricing"}</a></li>
+                    <li><a href="#" onclick="smoothScroll('#features');return false">{lang key="store.codeGuard.tab.features"}</a></li>
+                    <li><a href="#" onclick="smoothScroll('#faq');return false">{lang key="store.codeGuard.tab.faq"}</a></li>
                 </ul>
             </div>
         </div>
@@ -39,10 +42,10 @@
     <div class="content-block image-standout" id="overview">
         <div class="container">
             <div class="row">
-                <div class="col-md-4 text-center">
+                <div class="col-sm-4 text-center">
                     <img src="{$WEB_ROOT}/assets/img/marketconnect/codeguard/hero-image-a.png">
                 </div>
-                <div class="col-md-8">
+                <div class="col-sm-8">
                     <h2 class="strong-green">{lang key="store.codeGuard.leadTitle"}</h2>
                     <p>{lang key="store.codeGuard.leadText1"}</p>
                     <p>{lang key="store.codeGuard.leadText2"}</p>
@@ -51,7 +54,7 @@
         </div>
     </div>
 
-    <div class="content-block overview-features clearfix">
+    <div class="content-block overview-features">
         <div class="container">
             <ul>
                 <li>
@@ -82,12 +85,12 @@
         <div class="container">
             <div class="row">
                 {if count($products) > 0}
-                    <div class="col-md-3 d-none d-md-block text-center">
+                    <div class="col-md-3 hidden-xs hidden-sm text-center">
                         <img src="{$WEB_ROOT}/assets/img/marketconnect/codeguard/pick-backup.png">
                     </div>
                     <div class="col-md-9">
                         {if !$loggedin && $currencies}
-                            <form method="post" action="{routePath('store-product-group', $routePathSlug)}" class="float-right">
+                            <form method="post" action="{routePath('store-codeguard-index')}" class="pull-right">
                                 <select name="currency" class="form-control currency-selector" onchange="submit()">
                                     <option>{lang key="changeCurrency"} ({$activeCurrency.prefix} {$activeCurrency.code})</option>
                                     {foreach $currencies as $currency}
@@ -105,7 +108,7 @@
                                 <div id="pricingAmount" class="price">--</div>
                                 <div id="pricingCycle"></div>
                             </div>
-                            <form action="{routePath('cart-order')}" method="post" class="float-right">
+                            <form action="{routePath('store-order')}" method="post" class="pull-right">
                                 <input id="selectedProductId" type="hidden" name="pid" value="">
                                 <button type="submit" class="btn btn-default order-btn" id="product-order-button">
                                     {lang key='ordernowbutton'}
@@ -114,7 +117,7 @@
                         </div>
                     </div>
                 {elseif $inPreview}
-                    <div class="col-12 lead text-center">
+                    <div class="col-xs-12 lead text-center">
                         {lang key="store.codeGuard.adminPreview"}
                     </div>
                 {/if}
@@ -215,7 +218,7 @@
             <h3 class="text-center">{lang key="store.codeGuard.faq.title"}</h3>
             <div class="row">
                 {foreach $codeGuardFaqs as $faq}
-                    <div class="col-lg-4 col-md-6">
+                    <div class="col-md-4 col-sm-6">
                         <h4>{$faq['question']}</h4>
                         <p>{$faq['answer']}</p>
                     </div>
@@ -235,15 +238,18 @@
 </div>
 
 <!-- RangeSlider JS -->
-<script src="{$BASE_PATH_JS}/ion.rangeSlider.js"></script>
-<script>
-    var sliderActivated = false,
-        sliderProductNames = [
-        {foreach $products as $product}
-            "{$product->diskSpace}",
-        {/foreach}
-        ],
-        allProducts = {
+<script type="text/javascript" src="{$BASE_PATH_JS}/ion.rangeSlider.js"></script>
+<script type="text/javascript">
+
+    var sliderActivated = false;
+
+    var sliderProductNames = [
+    {foreach $products as $product}
+        "{$product->diskSpace}",
+    {/foreach}
+    ];
+
+    var allProducts = {
         {foreach $products as $num => $product}
         "{$num}": {
             "pid": "{$product->id}",
@@ -253,12 +259,13 @@
             "cycle": "{lang key={'orderpaymentterm'|cat:$product->pricing()->first()->cycle()}}"
         },
         {/foreach}
-        },
-        definedProducts = {
+    };
+
+    var definedProducts = {
         {foreach $products as $product}
             "{$product->id}": "{$product@index}"{if !($product@last)},{/if}
         {/foreach}
-        };
+    };
 
     {foreach $products as $product}
         {if $product->isFeatured}
@@ -286,16 +293,17 @@
         rangeSliderValues['from'] = firstFeatured;
     }
 
-    function refreshSelectedProduct(data) {
-        var featureName = "",
-            featureMarkup = "",
-            i = parseInt(data.from);
-
+    function refreshSelectedProduct(data)
+    {
+        var featureName = "";
+        var featureMarkup = "";
+        var i = parseInt(data.from);
         if (isNaN(i)) {
             i = 0;
             jQuery(".irs-single").text(sliderProductNames[0]);
             jQuery(".irs-grid-text").text('');
         }
+
         jQuery("#selectedProductId").val(allProducts[i].pid);
         jQuery("#productDescription").html(allProducts[i].desc);
         jQuery("#pricingAmount").html(allProducts[i].price);
@@ -307,5 +315,6 @@
     jQuery(".irs-single").text(sliderProductNames[0]);
     jQuery(".irs-grid-text").text('');
     {/if}
+
     sliderActivated = true;
 </script>

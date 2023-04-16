@@ -1,9 +1,9 @@
-{foreach $customfields as $customfield}
+{foreach from=$customfields item=customfield}
     <div class="form-group">
         <label for="customfield{$customfield.id}">{$customfield.name}</label>
         {$customfield.input}
         {if $customfield.description}
-            <p class="form-text text-muted">{$customfield.description}</p>
+            <p class="help-block">{$customfield.description}</p>
         {/if}
     </div>
 {/foreach}

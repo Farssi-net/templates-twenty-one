@@ -4,7 +4,7 @@
         <div class="featured-tlds-container">
             <div class="row">
                 {foreach $featuredTlds as $num => $tldinfo}
-                    <div class="col-md-3 col-sm-4 col-6">
+                    <div class="col-md-3 col-sm-4 col-xs-6">
                         <div class="featured-tld">
                             <div class="img-container">
                                 <img src="{$BASE_PATH_IMG}/tld_logos/{$tldinfo.tldNoDots}.png">
@@ -24,7 +24,7 @@
     {/if}
 
     {if !$loggedin && $currencies}
-        <form method="post" action="" class="float-right">
+        <form method="post" action="" class="pull-right">
             <select name="currency" class="form-control currency-selector" onchange="submit()">
                 <option>
                     {lang key="changeCurrency"} ({$activeCurrency.prefix} {$activeCurrency.code})
@@ -42,40 +42,37 @@
 
     <div class="tld-filters">
         {foreach $tldCategories as $category => $count}
-            <a href="#" data-category="{$category}" class="badge badge-secondary">{lang key="domainTldCategory.$category" defaultValue=$category} ({$count})</a>
+            <a href="#" data-category="{$category}" class="label label-default">{lang key="domainTldCategory.$category" defaultValue=$category} ({$count})</a>
         {/foreach}
     </div>
 
     {include file="$template/includes/tablelist.tpl" tableName="DomainPricing" noOrdering=true}
-    <script>
-        jQuery(document).ready(function() {
-            var table = jQuery('#tableDomainPricing').show().DataTable();
-
+    <script type="text/javascript">
+        jQuery(document).ready(function(){
+            var table = jQuery('#tableDomainPricing').removeClass('hidden').DataTable();
             {if $orderby == 'date'}
                 table.order(0, '{$sort}');
             {elseif $orderby == 'subject'}
                 table.order(1, '{$sort}');
             {/if}
             table.draw();
-            jQuery('#tableLoading').hide();
+            jQuery('#tableLoading').addClass('hidden');
             jQuery('.tld-filters a').unbind();
             jQuery('.tld-filters a').click(function(e) {
                 e.preventDefault();
-                if (jQuery(this).hasClass('badge-success')) {
+                if (jQuery(this).hasClass('label-success')) {
                     jQuery('#tableDomainPricing_wrapper input[type="search"]').val('').trigger('keyup');
-                    jQuery('.tld-filters a').removeClass('badge-success');
+                    jQuery('.tld-filters a').removeClass('label-success');
                 } else {
-                    jQuery('#tableDomainPricing_wrapper input[type="search"]').val(jQuery(this)
-                        .data('category'))
-                        .trigger('keyup');
-                    jQuery('.tld-filters a').removeClass('badge-success');
-                    jQuery(this).addClass('badge-success');
+                    jQuery('#tableDomainPricing_wrapper input[type="search"]').val(jQuery(this).data('category')).trigger('keyup');
+                    jQuery('.tld-filters a').removeClass('label-success');
+                    jQuery(this).addClass('label-success');
                 }
             });
         });
     </script>
 
-    <div class="table-container clearfix overflow-auto">
+    <div class="table-container clearfix">
         <table class="table table-list hidden" id="tableDomainPricing">
             <thead>
             <tr>
@@ -101,7 +98,7 @@
                     </td>
                     <td>
                         {$data.categories[0]}
-                        <span class="w-hidden">
+                        <span class="hidden">
                             {foreach $data.categories as $category}
                                 {$category}
                             {/foreach}
@@ -171,7 +168,7 @@
             </tbody>
         </table>
         <div class="text-center" id="tableLoading">
-            <p><i class="fas fa-spinner fa-spin"></i> {lang key='loading'}</p>
+            <p><i class="fas fa-spinner fa-spin"></i> {$LANG.loading}</p>
         </div>
     </div>
 
